@@ -33,7 +33,7 @@ export default function RecordAndSection({ mockInterviewQuestion, activeQuestion
             const headers:any = {
               Authorization: `Token ${token}`
             }
-            const ws = new WebSocket(`wss://api.deepgram.com/v1/listen?model=nova-2&filler_words=true&numerals=true&smart_format=true&endpointing=500`, ['token', token]);
+            const ws = new WebSocket(`wss://api.deepgram.com/v1/listen?model=nova-2&filler_words=true&numerals=true&smart_format=true&endpointing=3000`, ['token', token]);
 
             ws.onopen = () => {
                 console.log('Connected to Deepgram WebSocket');
@@ -87,6 +87,8 @@ export default function RecordAndSection({ mockInterviewQuestion, activeQuestion
         }
     };
 
+  
+
     const UpdateUserAnswer = async () => {
         console.log(userAnswer);
         setLoading(true);
@@ -128,15 +130,13 @@ export default function RecordAndSection({ mockInterviewQuestion, activeQuestion
     }, [userAnswer]);
 
     return (
-        <div className='flex items-center justify-center flex-col'>
-            <div className='flex flex-col justify-center my-20 items-center bg-black rounded-lg'>
-                <Webcam mirrored={true} style={{
-                    height: 300,
-                    width: '100%',
-                    zIndex: 10
+        <div className='flex items-center justify-center flex-col '>
+            <div className='flex flex-col  justify-center my-10 items-center bg-black rounded-full'>
+                <Webcam mirrored={true} videoConstraints={{width: 250, height:250}} style={{    
+                    borderRadius: 500
                 }} />
             </div>
-            <Button disabled={loading} onClick={StartStopRecording} variant={'outline'} className='my-10'>
+            <Button  disabled={loading} onClick={StartStopRecording} variant={'outline'} className='my-10 hidden'>
                 {isRecording ?
                     <h2 className='text-red-600 flex gap-2'>
                         <Mic2 />Stop Recording...

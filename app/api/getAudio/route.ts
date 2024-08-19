@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
   const { text } = await req.json();
 
   try {
-    const url = 'https://api.deepgram.com/v1/speak?model=aura-perseus-en';
+    const url = 'https://api.deepgram.com/v1/speak?model=aura-helios-en';
     const options = { 
       method: 'POST', 
       headers: {

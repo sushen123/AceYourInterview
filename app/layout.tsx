@@ -1,10 +1,21 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Syne } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
+import { ChatProvider } from "@/hooks/useChat";
 
-const inter = Inter({ subsets: ["latin"] });
+ const displayFont = Syne({
+     subsets: ['latin'],
+     display: 'swap',
+     variable: '--font-space-display',
+   });
+
+   const baseFont = Inter({
+     subsets: ['latin'],
+       display: 'swap',
+      variable: '--font-space-default',
+     });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,17 +29,19 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
+      <ChatProvider>
     <html lang="en">
-      <body className={`${inter.className}relative h-full w-full bg-slate-950 text-white`}>
-        <div className=" bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]">
+      <body className={`${baseFont.variable} ${displayFont.variable} scroll-smooth`}>
+      
         <Toaster />
   
         {children}
-        </div>
+  
      
         </body>
   
     </html>
+    </ChatProvider>
     </ClerkProvider>
   );
 }

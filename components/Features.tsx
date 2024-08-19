@@ -146,7 +146,7 @@ export function ExpandableCardDemo() {
               <div className="">
                 <motion.h3
                   layoutId={`title-${card.title}-${id}`}
-                  className="font-medium text-neutral-800 dark:text-neutral-200 text-center md:text-left"
+                  className="font-medium text-neutral-300 dark:text-neutral-200 text-center md:text-left"
                 >
                   {card.title}
                 </motion.h3>
@@ -206,69 +206,48 @@ export const CloseIcon = () => {
 
 const cards = [
   {
-    description: "Lana Del Rey",
-    title: "Summertime Sadness",
+    description: "Feedback",
+    title: "Grading and feedback to improve interview performance",
     src: "/logo.png",
-    ctaText: "Play",
+    ctaText: "Details",
     ctaLink: "https://ui.aceternity.com/templates",
     content: () => {
       return (
         <p>
-          Lana Del Rey, an iconic American singer-songwriter, is celebrated for
-          her melancholic and cinematic music style. Born Elizabeth Woolridge
-          Grant in New York City, she has captivated audiences worldwide with
-          her haunting voice and introspective lyrics. <br /> <br /> Her songs
-          often explore themes of tragic romance, glamour, and melancholia,
-          drawing inspiration from both contemporary and vintage pop culture.
-          With a career that has seen numerous critically acclaimed albums, Lana
-          Del Rey has established herself as a unique and influential figure in
-          the music industry, earning a dedicated fan base and numerous
-          accolades.
+        At AceYourInterview, our grading and feedback system is designed to help users improve theri performance in job interviews,
+        <span>Whether you're a student, job seeker, or remote worked</span>
+        our AI evaluate enginer provides detailed feedback on your answers to common interview questions.
+        <span>Feedback includes suggestions for improvement and performance data</span>
+        so you can identify areas for growth and work on becoming a more confident and skilled interviewee.
         </p>
       );
     },
   },
   {
-    description: "Babbu Maan",
-    title: "Mitran Di Chhatri",
+    description: "Realistic Mock Interview",
+    title: "Improve Your Speaking Skills with AI",
     src: "/logo.png",
-    ctaText: "Play",
+    ctaText: "Details",
     ctaLink: "https://ui.aceternity.com/templates",
     content: () => {
       return (
         <p>
-          Babu Maan, a legendary Punjabi singer, is renowned for his soulful
-          voice and profound lyrics that resonate deeply with his audience. Born
-          in the village of Khant Maanpur in Punjab, India, he has become a
-          cultural icon in the Punjabi music industry. <br /> <br /> His songs
-          often reflect the struggles and triumphs of everyday life, capturing
-          the essence of Punjabi culture and traditions. With a career spanning
-          over two decades, Babu Maan has released numerous hit albums and
-          singles that have garnered him a massive fan following both in India
-          and abroad.
+         You can practice your responses to common interview questions and improve your chances of success in a real interview. Our AI interviewer will ask you interview questions, and you'll need to respond out loud just as you would in a real interview.
         </p>
       );
     },
   },
 
   {
-    description: "Metallica",
-    title: "For Whom The Bell Tolls",
+    description: "Completed FREE",
+    title: "Personalized Cover Letter",
    
-    ctaText: "Play",
+    ctaText: "Details",
     ctaLink: "https://ui.aceternity.com/templates",
     content: () => {
       return (
         <p>
-          Metallica, an iconic American heavy metal band, is renowned for their
-          powerful sound and intense performances that resonate deeply with
-          their audience. Formed in Los Angeles, California, they have become a
-          cultural icon in the heavy metal music industry. <br /> <br /> Their
-          songs often reflect themes of aggression, social issues, and personal
-          struggles, capturing the essence of the heavy metal genre. With a
-          career spanning over four decades, Metallica has released numerous hit
-          albums and singles that have garnered them a massive fan following
-          both in the United States and abroad.
+         InterviewAI can generate a personalized cover letter for you based on your desired job position and qualifications. Simply enter your information and let the AI do the rest. With support for multiple languages, you can practice your interview skills and write your cover letter in the language of your choice.
         </p>
       );
     },
@@ -277,7 +256,7 @@ const cards = [
     description: "Led Zeppelin",
     title: "Stairway To Heaven",
    
-    ctaText: "Play",
+    ctaText: "Details",
     ctaLink: "https://ui.aceternity.com/templates",
     content: () => {
       return (

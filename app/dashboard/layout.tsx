@@ -1,17 +1,24 @@
 import { UserButton } from "@clerk/nextjs"
 
 import NavBar from './__components/NavBar'
+import Image from "next/image"
+import { ThemeProvider } from "@/components/ui/theme-provider"
+
 
 function DashboardLayout({children}: any)  {
 
     return (
-        <div >
-       <NavBar />
-       <div className="mx-5 md:mx-20 lg:mx-36">
+        
+        <div className="h-screen">
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+            storageKey="theme"
+          >  
        {children}
-       </div>
-
-
+       </ThemeProvider> 
         </div>
    
     )

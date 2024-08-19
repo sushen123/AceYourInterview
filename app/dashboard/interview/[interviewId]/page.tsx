@@ -1,12 +1,13 @@
 "use client"
 
 import { Button } from '@/components/ui/button'
-import { PrismaClient } from '@prisma/client'
+
 import axios from 'axios'
 import { Lightbulb, WebcamIcon } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Webcam from 'react-webcam'
 
 export default function Interview({params}: {params: any}) {
@@ -27,57 +28,81 @@ export default function Interview({params}: {params: any}) {
     
     }
 
+    
 
   return (
-   <div className='my-10 flex justify-center flex-col items-center'>
-    <h2 className='font-bold text-2xl'>Let's get started</h2>
-    <div className='grid grid-cols-1 md:grid-cols-2'>
-    <div className='flex flex-col my-5 items-center gap-5  '>
-        <div className='flex flex-col my-5 gap-5 rounded-lg border'>
-        <h2 className='text-lg'>
-        <strong>    Job Role/ Job Position </strong>{interviewData?.jobPosition || "Full stack"}
-        </h2>
-        <h2 className='text-lg'>
-        <strong> Job Description    </strong>{interviewData?.jobDescriptoin || "React"}
-        </h2>
-        <h2 className='text-lg'>
-        <strong>    Year of Experience </strong>{interviewData?.jobExperience || "3"}
-        </h2>
-        </div>
-        <div className='p-5 border rounded-lg border-yellow-300 bg-yellow-100'>
-          <h2 className='flex gap-2 items-center text-yellow-500'> <Lightbulb /><span>Information</span> </h2>
-            <h2 className='mt-3 text-yellow-500'>
-                Enbale Video Web Cam and MicroPhone to Start your Ai Generated Mock Interview, It has 5 question which you can answer and at the last you will get the report on the basis of your answer. NOTE: We never record your video, Web cam access you can disable at any time if you want
-    
-            </h2>
-        </div>
+   <div className='text-black w-full     flex flex-col justify-center  font-mono  bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)] '>
+      <div className='min-h-screen max-h-full'>
+
+     
+    <div className=' p-3   flex gap-2 items-center'>
+    <Link href={'/dashboard'}>
+    <div className='flex gap-2 items-center'>
+    <Image src={'/logo.png'} width={40} height={40} alt='logo' />
+        <h1 className='font-sans font-bold text-blue-500 text-xl '>AceYourInterview</h1>
+    </div>  
+     </Link>
     </div>
-        <div className='flex flex-col my-5  gap-5'>
-     {webCamEnbaled ?  <Webcam 
-     onUserMedia={() => setWebCamEnabled(true) }
+ 
+    <div className='flex flex-col  gap-5 items-center'>
+    <h2 className='font-bold text-3xl mt-4  flex justify-center'>Check camera and mic</h2>
+    <h3 className=' text-center sm:w-3/4'> Enable Video Web Cam and MicroPhone to Start your Ai Generated Mock Interview,
+                 It has 15 question which you can answer and at  last you will get the report on the basis of your answer.</h3>
+    <h4 className='text-center bg-yellow-100 text-yellow-500'> NOTE: We never record your video, Web cam access you can disable at any time if you want</h4>
+    </div>
+   
+    <div className='grid grid-cols-1 md:grid-cols-2'>
+            
+        <div className='flex flex-col  my-7  rounded  items-center  gap-5'>
+     {webCamEnbaled ? <>  <Webcam 
+     onUserMedia={() => {
+       setWebCamEnabled(true)
+     }}
      onUserMediaError={() =>setWebCamEnabled(false) }
+     videoConstraints={{width: 400, height:300}}
+     audio={true}
+     audioConstraints={{
+        echoCancellation: true,
+        noiseSuppression: true,
+        autoGainControl: true
+     }}
     mirrored={true}
      style={{
-        height: 300,
-        width: 300
+        borderRadius: 15
      }} /> 
+     
+    </>
      : 
      <>
-     <WebcamIcon className='h-full w-72 p-20  my-7 bg-secondary rounded-lg border' />
-     <Button variant={'ghost'} className='w-full bg-slate-600' onClick={() => setWebCamEnabled(true)}>Enable Web Cam and MicroPhone</Button>
+     <WebcamIcon className='h-full w-72 p-20   bg-secondary rounded-lg border' />
+     
      </>
     }
     </div>
-    </div>
-    <div className='flex justify-end items-end'>
+    <div className='flex flex-col text-xl justify-center items-center'>
+        <h1 className='w-full text-center sm:text-left sm:w-2/3'>WebCam : <span className={`${webCamEnbaled ? "text-green-400": "text-red-500"}`}>{webCamEnbaled ? " Working": " Not Working"}</span></h1>
+        <h1 className='w-full text-center sm:text-left sm:w-2/3 '>Mic : <span className={`${webCamEnbaled ? "text-green-400": "text-red-500"}`}>{webCamEnbaled ? " Working": "Not Working"}</span></h1>
+        <div className='mt-5 w-2/3'>
+        <AnimatedSubscribeButtonDemo setWebcamEnabled={setWebCamEnabled} />
+        <div className='flex '>
+        
+        <Button className='bg-blue-400 mt-5 rounded-full' disabled={!webCamEnbaled}>
         <Link href={'/dashboard/interview/'+ params.interviewId + '/start'}>
-        <Button>Start</Button>
-        </Link>
+          Start
+         
+          </Link>
+        </Button>
+        <div className='mt-8 sm:mt-6 ml-5'>
+          {!webCamEnbaled && <div className='text-sm  sm:text-xl text-center '>Enabled Webcam to Start</div>}
+        </div>
+       
+  
 
     </div>
-    
-   
-
+        </div>    
+    </div>
+    </div>
+   </div>
    </div>
   )
 }
@@ -89,4 +114,31 @@ interface interviewData {
     jobExperience: string
 
 
+}
+
+import { CheckIcon, ChevronRightIcon } from "lucide-react";
+
+import { AnimatedSubscribeButton } from "@/components/magicui/animated-subscribe-button";
+
+export function AnimatedSubscribeButtonDemo({setWebcamEnabled}) {
+  return (
+    <AnimatedSubscribeButton 
+      buttonColor="#8fe57e"
+      setWebCameEnabled={setWebcamEnabled}
+      buttonTextColor="#ffffff"
+      subscribeStatus={false}
+      initialText={
+        <span className="group inline-flex items-center">
+          Enable WebCam and Mic {" "}
+          <ChevronRightIcon className="ml-1 h-7 w-7 transition-transform duration-300 group-hover:translate-x-1" />
+        </span>
+      }
+      changeText={
+        <span className="group inline-flex items-center">
+          <CheckIcon className="mr-2 h-4 w-4" />
+          Enabled{" "}
+        </span>
+      }
+    />
+  );
 }

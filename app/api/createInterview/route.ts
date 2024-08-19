@@ -1,24 +1,20 @@
 import { dbConnect } from "@/lib/db";
 
-import { useUser } from "@clerk/nextjs";
-
 export async  function POST(req: Request) {
-
-   
 
 
  try {
     
     const prisma = await dbConnect()
     const body = await req.json()
-    console.log(body)
+    
     const response = await prisma.mockInterview.create({
         data: {
-          jsonMockResponse: body.MockJsonResponse,
+          jsonMockResponse: body.jsonMockResponse,
           jobPosition: body.jobPosition,
-          jobExperience: body.jobExp,
-          jobDescriptoin: body.jobDesc,
-          createdBy: body.user?.primaryEmailAddress?.emailAddress || ""
+          jobExperience: body.jobExperience,
+          jobDescriptoin: body.jobDescription,
+          createdBy: body.createdBy
         }
       })
 
@@ -26,7 +22,7 @@ export async  function POST(req: Request) {
         mockId: response.mockId
     })
  } catch (error) {
-    
+    console.log(error)
     return Response.json({
         message: "Error while creating",
 

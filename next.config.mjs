@@ -6,6 +6,9 @@ const nextConfig = {
         "api.microlink.io", // Microlink Image Preview
       ],
     },
+    experimental: {
+      serverComponentsExternalPackages: ['pdf2json'],
+    },
   };
 
   export default nextConfig
