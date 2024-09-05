@@ -8,7 +8,9 @@ import {
 } from "@tabler/icons-react";
 
 
-
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import {  Calendar, Clock,  TrendingUp, User, Zap, Video, Mic, FileText } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import {
   Select,
   SelectContent,
@@ -28,7 +30,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Loader2, Loader2Icon, MoonIcon, SunIcon } from "lucide-react";
+import { Award, Loader2, Loader2Icon, MoonIcon, PlusCircle, PlusIcon, Sparkles, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 
 
@@ -49,6 +51,12 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { headers } from "next/headers";
 import FileUpload from "../__components/file-upoad";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Avatar } from "@/components/Avatar";
+import { AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 
 
@@ -136,7 +144,7 @@ export default function Home() {
     <div
       className={cn(
         "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 max-w-7xl mx-auto border border-neutral-200 dark:border-neutral-700 overflow-hidden",
-        "h-[]" 
+        "h-[100vh]" 
       )}
     >
       <Sidebar open={open} setOpen={setOpen}  >
@@ -169,7 +177,9 @@ export default function Home() {
 
         </SidebarBody>
       </Sidebar>
-      <Dashboard  />
+    
+        <Dashboard />
+     
    
     </div>
   );
@@ -281,8 +291,8 @@ const Dashboard = () => {
               9. Add three dots “…” to create longer pauses where appropriate. 
               10. Use filler words “um” and “uh” naturally throughout the questions.
               11. Keep sentences shorter to improve pronunciation.
-              12. Return the 15 questions in JSON format with the field "question". Ensure the questions are phrased in a way that reflects natural human speech patterns, with appropriate use of filler words, pauses, and occasional light humor.
-              13. Add light humor or friendly remarks sparingly to make the interview feel engaging and realistic. Avoid overusing jokes; keep the tone professional but approachable.`;
+              12. Return the 15 questions in JSON format with the field "question" and the type of question with the filed of "type" and there sholud be only three type (situational, behavioural, technical). Ensure the questions are phrased in a way that reflects natural human speech patterns, with appropriate use of filler words, pauses, and occasional light humor.
+         \    13. Add light humor or friendly remarks sparingly to make the interview feel engaging and realistic. Avoid overusing jokes; keep the tone professional but approachable.`;
       const result = await chatSession.sendMessage(InputPrompt);
       const MockJsonResponse = (result.response.text()).replace('```json', '').replace('```', '');
         console.log(MockJsonResponse)
@@ -311,8 +321,17 @@ const Dashboard = () => {
     }
   } 
 
+  const performanceData = [
+    { name: 'Technical Skills', score: 85 },
+    { name: 'Communication', score: 75 },
+    { name: 'Problem Solving', score: 90 },
+    { name: 'Cultural Fit', score: 80 },
+  ];
+
+  
+
   return (
-    <div className="w-screen  ">
+    <div className="w-screen overflow-y-auto ">
       <div className="text-black dark:text-white  hidden md:flex  justify-end h-10  ">
       <Button  className="flex" >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6 text-black dark:text-white mr-2">
@@ -339,177 +358,222 @@ const Dashboard = () => {
       </Button>
 
       </div>
-      <div className=" bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] grid grid-row-12  text-black dark:text-white  bg-white dark:bg-neutral-900  rounded-s-3xl">
-        <div className="bg-slate-200 h-10 flex  items-center dark:bg-neutral-600 w-96 rounded-ee-3xl rounded-tl-3xl row-span-1">
+      <div className="  bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] grid grid-row-12  text-black dark:text-white  bg-white dark:bg-neutral-900  rounded-s-3xl">
+       
+      <div className="bg-slate-200 h-10 flex   items-center dark:bg-neutral-600 w-96 rounded-ee-3xl rounded-tl-3xl row-span-1">
             <Link href={'/dashboard/mockinterview'} className="p-0" onClick={() => {
                 setInterviewState("ai")
-  
+     
             }}>
-            <div className={`pt-1 ${interviewState == "ai" ? "bg-white dark:bg-gray-400": ""}  w-44 text-center rounded-xl  rounded-tl-3xl  h-8`}>
-             <h1>AI Interview</h1>   
+            <div className={`pt-1 ${interviewState == "ai" ? "bg-white dark:bg-gray-400": ""} ml-2 w-44 text-center rounded-xl  rounded-tl-3xl  h-8`}>
+             <h1 className="font-sans font-normal">AI Interview</h1>   
             </div>
             </Link>
             <Link href={'/dashboard/mockinterview/peerInterview'} className="p-0" onClick={() => {
                 setInterviewState("peer")
-            
             }}>
-            <div className={`pt-1 ${interviewState == "peer" ? "bg-white dark:bg-gray-400": ""}  w-44 text-center rounded-xl  rounded-ee-3xl  h-8  `}>
-                  <h1>Peer to Peer Interview</h1>
+            <div className={`pt-1 ${interviewState == "peer" ? "bg-white dark:bg-gray-400": ""} ml-4 w-44 text-center rounded-xl  rounded-ee-3xl  h-8`}>
+                  <h1 className="font-sans font-normal">Peer to Peer Interview</h1>
             </div>
             </Link>
             
         </div>
-        <div className="row-span-11 ml-5 ">
+
           
-         
-            
-            <Sheet>
-              <SheetTrigger onClick={() => setIndex(0)} className="w-full sm:w-64 mr-10">
-              
-          <div  className="mt-5 flex flex-col items-center justify-center shadow-md rounded-2xl  h-32 top-0 z-[-2]  bg-white bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)] dark:bg-neutral-900 dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]  ">
-          <div className=" bg-blue-500 rounded-full text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
-                </div>
+        <div className=" ml-5 my-3  "> 
+          <div className="">
+
                 <div>
-                <h1 className="text-slate-500 dark:text-white">Create an interview</h1>
-                </div>
-          </div>
-
-          </SheetTrigger>
-          <SheetContent className="bg-white text-black dark:bg-black dark:text-white ">
-            <SheetHeader>
-              <SheetTitle>
-                Fill the form
-              </SheetTitle>
-              <SheetDescription className="text-left ">
-              <form onSubmit={handleSubmit}>
-                
-              <div>
-                <h2>Add Details about your job position/role, Job description and years of exprience</h2>
-
-               {index==0 && <div className="mt-7 my-3">
-                <Select onValueChange={(value) => {
-                  setInterviewType(value)
-                }}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Interview Type" />
-            </SelectTrigger>
-            <SelectContent className="text-black dark:text-white">
-              <SelectGroup>
-                <SelectLabel></SelectLabel>
-                <SelectItem value="software engineer verbal interview">Software Engineer Verbal interview Only</SelectItem>
-                <SelectItem value="software engineer full interview">Software Engineer Full interview</SelectItem>
-                <SelectItem value="others">Others</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select> 
-          {jobInterviewType === "others" && 
-          <div>
-           <h1 className="mt-5 font-bold">Job Role</h1>
-           <Input onChange={(e) => {
-            setJobPosition(e.target.value)
-           }} />
-            </div>}
-          <div className="text-right mt-36">
-          <Button onClick={() => {
-            setIndex(index+1)
-          }} className="">
-                    Next
-                   </Button>
-            </div>     
-                  
-                </div>}
-
-           { index==1 &&  <div  className="my-3">
-                  <label >Job Description/ Tech Stack(in short)</label>
-                <Textarea onChange={(e) => {
-                    setJobDescription(e.target.value)
-                }}  className="rounded-md" placeholder="Ex. React, Angular, Nodejs" />
-                 <div className="text-right mt-36">
-          <Button onClick={() => {
-            setIndex(index+1)
-          }} className="">
-                    Next
-                   </Button>
-            </div>  
+              <Alert className=" w-full  mb-3 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+                <Sparkles className="h-4 w-4" />
+                <AlertTitle>AI-Powered Interviews</AlertTitle>
+                <AlertDescription>
+                  Practice with our advanced AI to simulate real interview scenarios. Get instant feedback and improve your skills.
+                </AlertDescription>
+              </Alert>
               </div>
-              
-              }
-           { index==2 &&  <div className="mt-5 flex flex-col gap-5">
-                <label htmlFor="" className="">Upload your resume</label>
-              <FileUpload setResume={setResume} />
-              <div className="text-right mt-36">
-          <Button onClick={() => {
-            setIndex(index+1)
-          }} className="">
-                    Next
-                   </Button>
-            </div> 
-              </div>}
-              
-            {index==3 &&  <div className="my-3">
-                <label htmlFor="">Expereince Level</label>
-              <Select onValueChange={(value) => {
-                setJobExperience(value)
-                
-              }}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Experience Level" />
-          </SelectTrigger>
-          <SelectContent className="text-black dark:text-white">
-            <SelectGroup>
-              <SelectLabel>Level</SelectLabel>
-              <SelectItem value="Entry level">Entry Level</SelectItem>
-              <SelectItem value="Intermediate level">Intermediate</SelectItem>
-              <SelectItem value="senior level">Senior</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-
-                  <div className="flex gap-5 justify-end">
-              
-              <Button type="submit" className="bg-blue-500 rounded-lg hover:bg-blue-400" disabled={loading}>
-                  {loading ?
-                  <>
-                  <Loader2 className="animate-spin" />Generating</>: 'Start Interview'
-              }
-                  </Button>
-
-          </div>
-                
-              </div>}
-            </div>
-       
-        </form>
-              </SheetDescription>
-            </SheetHeader>
-          </SheetContent>
+        <Sheet>
+            <SheetTrigger className="sm:w-72 w-full my-3" asChild>  
+            <Button className="w-full mb-6 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 hover:from-blue-600 hover:via-indigo-600 hover:to-purple-600 text-white font-bold py-3">
+                <Zap className="mr-2 h-5 w-5" /> Create New Interview
+              </Button>
+            </SheetTrigger>
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle>Set Up Your Interview</SheetTitle>
+                <SheetDescription>
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    {index === 0 && (
+                      <div>
+                        <Select onValueChange={setInterviewType}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select Interview Type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="software engineer verbal">Software Engineer Verbal</SelectItem>
+                            <SelectItem value="software engineer full">Software Engineer Full</SelectItem>
+                            <SelectItem value="others">Others</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        {jobInterviewType === "others" && (
+                          <Input 
+                            placeholder="Enter Job Role" 
+                            onChange={(e) => setJobPosition(e.target.value)}
+                            className="mt-2"
+                          />
+                        )}
+                      </div>
+                    )}
+                    {index === 1 && (
+                      <Input 
+                        placeholder="Job Description / Tech Stack" 
+                        onChange={(e) => setJobDescription(e.target.value)}
+                      />
+                    )}
+                    {index === 2 && (
+                      <div>
+                        <p>Upload your resume</p>
+                        <FileUpload setResume={setResume} />
+                      </div>
+                    )}
+                    {index === 3 && (
+                      <Select onValueChange={setJobExperience}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Experience Level" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Entry level">Entry Level</SelectItem>
+                          <SelectItem value="Intermediate level">Intermediate</SelectItem>
+                          <SelectItem value="senior level">Senior</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    )}
+                    <div className="flex justify-between">
+                      {index > 0 && (
+                        <Button type="button" onClick={() => setIndex(index - 1)}>
+                          Back
+                        </Button>
+                      )}
+                      {index < 3 ? (
+                        <Button type="button" onClick={() => setIndex(index + 1)}>
+                          Next
+                        </Button>
+                      ) : (
+                        <Button type="submit" disabled={loading}>
+                          {loading ? <><Loader2 className="animate-spin mr-2" />Starting...</> : 'Start Interview'}
+                        </Button>
+                      )}
+                    </div>
+                  </form>
+                </SheetDescription>
+              </SheetHeader>
+            </SheetContent>
           </Sheet>
-         
+              
+              
+              </div>
+             
+
           
-    
-              <div className="pt-5 flex flex-col">
-              <h1 className=" text-xl text-slate-500 dark:text-white">
-                Past Interviews
-              </h1>
-              <div className="flex gap-5 flex-wrap mb-5  ">
-                
-                <PastInterviews />
-                <PastInterviews />
-                <PastInterviews />
-                <PastInterviews />
-                <PastInterviews />
-                <PastInterviews /> 
-                <PastInterviews />
-                <PastInterviews />   
-              </div>
-              </div>
-        </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <TrendingUp className="mr-2 h-5 w-5 text-blue-500" />
+                  Performance Overview
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={performanceData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Bar dataKey="score" fill="#3b82f6" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <FileText className="mr-2 h-5 w-5 text-blue-500" />
+                  Quick Stats
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex flex-col items-center p-4 bg-blue-50 rounded-lg">
+                    <span className="text-3xl font-bold text-blue-600">12</span>
+                    <span className="text-sm text-gray-500">Total Interviews</span>
+                  </div>
+                  <div className="flex flex-col items-center p-4 bg-green-50 rounded-lg">
+                    <span className="text-3xl font-bold text-green-600">85%</span>
+                    <span className="text-sm text-gray-500">Avg. Score</span>
+                  </div>
+                  <div className="flex flex-col items-center p-4 bg-purple-50 rounded-lg">
+                    <span className="text-3xl font-bold text-purple-600">5</span>
+                    <span className="text-sm text-gray-500">Completed This Week</span>
+                  </div>
+                  <div className="flex flex-col items-center p-4 bg-yellow-50 rounded-lg">
+                    <span className="text-3xl font-bold text-yellow-600">3</span>
+                    <span className="text-sm text-gray-500">Scheduled</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
 
-      </div>
-
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <Card className="bg-white dark:bg-gray-800">
+            <CardHeader>
+              <h2 className="text-2xl font-semibold text-indigo-600 dark:text-indigo-400">Your Progress</h2>
+            </CardHeader>
+            <CardContent>
+              <Tabs defaultValue="skills">
+                <TabsList className="grid w-full grid-cols-2 mb-4">
+                  <TabsTrigger value="skills">Skills</TabsTrigger>
+                  <TabsTrigger value="recent">Recent Interviews</TabsTrigger>
+                </TabsList>
+                <TabsContent value="skills" className="space-y-4">
+                  {[
+                    { skill: "Technical Knowledge", progress: 80 },
+                    { skill: "Communication", progress: 75 },
+                    { skill: "Problem Solving", progress: 70 },
+                    { skill: "Behavioral Questions", progress: 85 },
+                  ].map((item, index) => (
+                    <div key={index}>
+                      <div className="flex justify-between mb-1">
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{item.skill}</span>
+                        <span className="text-sm font-medium text-indigo-600 dark:text-indigo-400">{item.progress}%</span>
+                      </div>
+                      <Progress value={item.progress} className="h-2" />
+                    </div>
+                  ))}
+                </TabsContent>
+                <TabsContent value="recent" className="space-y-4">
+                  {[
+                    { title: "Frontend Developer", date: "2 days ago", score: 8.5 },
+                    { title: "Full Stack Engineer", date: "1 week ago", score: 7.8 },
+                    { title: "React Specialist", date: "2 weeks ago", score: 9.0 },
+                  ].map((interview, index) => (
+                    <div key={index} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <div>
+                        <p className="font-semibold text-gray-700 dark:text-gray-300">{interview.title}</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{interview.date}</p>
+                      </div>
+                      <div className="text-lg font-bold text-indigo-600 dark:text-indigo-400">{interview.score}/10</div>
+                    </div>
+                  ))}
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
+          </div>
+          
+    </div>
+     </div>
     </div>
   )
 };
@@ -542,3 +606,31 @@ const PastInterviews = () => {
   )
 }
 
+
+
+const PastInterview = ({ date, score, duration, type }) => (
+  <Card className="w-full hover:shadow-lg transition-shadow">
+    <CardContent className="flex flex-col p-4">
+      <div className="flex justify-between items-center mb-2">
+        <div className="flex items-center">
+          <Calendar className="mr-2 h-4 w-4 text-blue-500" />
+          <span className="text-sm text-gray-500">{date}</span>
+        </div>
+        <Badge variant={score >= 80 ? "success" : score >= 60 ? "warning" : "destructive"}>
+          {score}%
+        </Badge>
+      </div>
+      <Progress value={score} className="mb-2" />
+      <div className="flex justify-between items-center">
+        <div className="flex items-center">
+          <Clock className="mr-2 h-4 w-4 text-blue-500" />
+          <span className="text-sm text-gray-500">{duration} mins</span>
+        </div>
+        <Badge variant="outline">{type}</Badge>
+      </div>
+    </CardContent>
+    <CardFooter>
+      <Button variant="outline" size="sm" className="w-full">Review Interview</Button>
+    </CardFooter>
+  </Card>
+);

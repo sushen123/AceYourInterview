@@ -10,6 +10,13 @@ import {
   IconUserBolt,
 } from "@tabler/icons-react";
 
+
+import { Input } from "@/components/ui/input"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Progress } from "@/components/ui/progress"
+import { Textarea } from "@/components/ui/textarea"
+import { Calendar, Clock, Video, Book, Users, Bell, Settings, LogOut, Plus, ChevronRight, Star, Activity, FileText, Brain, Sparkles, Award } from "lucide-react"
+
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -20,6 +27,9 @@ import { useTheme } from "next-themes";
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 
 
@@ -106,7 +116,7 @@ export default function Home() {
     <div
       className={cn(
         "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 max-w-7xl mx-auto border border-neutral-200 dark:border-neutral-700 overflow-hidden",
-        "h-[100vh]" 
+         "h-[100vh]"
       )}
     >
       <Sidebar open={open} setOpen={setOpen}  >
@@ -225,7 +235,7 @@ const Dashboard = () => {
 
 
   return (
-    <div className="w-screen ">
+    <div className="w-screen overflow-y-auto">
       <div className="text-black dark:text-white  hidden md:flex  justify-end h-10 ">
       <Button className="flex" >
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6 text-black dark:text-white mr-2">
@@ -252,27 +262,178 @@ const Dashboard = () => {
       </Button>
 
       </div>
-      <div className="  bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] grid grid-row-12 h-screen text-black dark:text-white  bg-white dark:bg-neutral-700  rounded-s-3xl">
+      <div className="  bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] grid grid-row-12 h-full text-black dark:text-white  bg-white dark:bg-neutral-700  rounded-s-3xl">
         <div className="bg-slate-200 h-10 flex  items-center dark:bg-neutral-600 w-96 rounded-ee-3xl rounded-tl-3xl row-span-1">
             <Link href={'/dashboard/mockinterview'} className="p-0" onClick={() => {
                 setInterviewState("ai")
      
             }}>
             <div className={`pt-1 ${interviewState == "ai" ? "bg-white dark:bg-gray-400": ""} ml-2 w-44 text-center rounded-xl  rounded-tl-3xl  h-8`}>
-             <h1>AI Interview</h1>   
+             <h1 className="font-sans font-normal">AI Interview</h1>   
             </div>
             </Link>
             <Link href={'/dashboard/mockinterview/peerInterview'} className="p-0" onClick={() => {
                 setInterviewState("peer")
             }}>
             <div className={`pt-1 ${interviewState == "peer" ? "bg-white dark:bg-gray-400": ""} ml-4 w-44 text-center rounded-xl  rounded-ee-3xl  h-8`}>
-                  <h1>Peer to Peer Interview</h1>
+                  <h1 className="font-sans font-normal">Peer to Peer Interview</h1>
             </div>
             </Link>
             
         </div>
-        <div className="row-span-11">
+        <div className="row-span-11 flex bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-gray-900 dark:to-gray-800">
+      
+
+      {/* Main Content */}
+      <main className="flex-1 p-6">
+        <div className="max-w-6xl mx-auto space-y-6">
+     
+
+          <div>
+          <Alert>
+                <Award className="h-4 w-4" />
+                <AlertTitle>Peer-to-Peer Sessions</AlertTitle>
+                <AlertDescription>
+                  Connect with peers for mutual interview practice and feedback. Learn from each other and grow together.
+                </AlertDescription>
+              </Alert>
+              </div>
+         
+
+          {/* Dashboard Overview */}
+          <section className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+              <h3 className="font-semibold mb-2 text-indigo-600 dark:text-indigo-400">Upcoming Interviews</h3>
+              <p className="text-2xl font-bold">3</p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+              <h3 className="font-semibold mb-2 text-indigo-600 dark:text-indigo-400">Completed Interviews</h3>
+              <p className="text-2xl font-bold">12</p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+              <h3 className="font-semibold mb-2 text-indigo-600 dark:text-indigo-400">Average Rating</h3>
+              <p className="text-2xl font-bold">4.7 / 5</p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+              <h3 className="font-semibold mb-2 text-indigo-600 dark:text-indigo-400">Practice Streak</h3>
+              <p className="text-2xl font-bold">7 days</p>
+            </div>
+          </section>
+
+          {/* Progress Tracking */}
+         
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Upcoming Interviews */}
+            <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+              <h2 className="text-xl font-semibold mb-4 text-indigo-600 dark:text-indigo-400">Upcoming Interviews</h2>
+              <div className="space-y-4">
+                {[1, 2, 3].map((interview) => (
+                  <div key={interview} className="flex items-center justify-between border-b pb-4 last:border-b-0 last:pb-0">
+                    <div className="flex items-center">
+                      <Avatar className="h-10 w-10">
+                        <AvatarFallback>JD</AvatarFallback>
+                      </Avatar>
+                      <div className="ml-4">
+                        <p className="font-semibold text-indigo-600 dark:text-indigo-400">Mock Interview with John Doe</p>
+                        <p className="text-sm text-gray-500">Frontend Developer Role</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <Clock className="h-4 w-4 mr-2 text-gray-500" />
+                      <span className="text-sm text-gray-500 mr-4">2:00 PM, May 15</span>
+                      <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                        Join
+                        <Video className="ml-2 h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <Button variant="link" className="mt-4 text-indigo-600 dark:text-indigo-400">
+                View all interviews
+                <ChevronRight className="ml-2 h-4 w-4" />
+              </Button>
+            </section>
+
+            {/* Recent Activity */}
+            <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+              <h2 className="text-xl font-semibold mb-4 text-indigo-600 dark:text-indigo-400">Recent Activity</h2>
+              <div className="space-y-4">
+                <div className="flex items-center">
+                  <Activity className="h-5 w-5 mr-3 text-green-500" />
+                  <p className="text-sm">Completed mock interview with Sarah J.</p>
+                </div>
+                <div className="flex items-center">
+                  <Star className="h-5 w-5 mr-3 text-yellow-500" />
+                  <p className="text-sm">Received 5-star feedback for communication skills</p>
+                </div>
+                <div className="flex items-center">
+                  <FileText className="h-5 w-5 mr-3 text-blue-500" />
+                  <p className="text-sm">Updated resume with new project experience</p>
+                </div>
+                <div className="flex items-center">
+                  <Brain className="h-5 w-5 mr-3 text-purple-500" />
+                  <p className="text-sm">Completed 3 new algorithm challenges</p>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          {/* Schedule New Interview */}
+          <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold mb-4 text-indigo-600 dark:text-indigo-400">Schedule New Interview</h2>
+            <form className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Input type="text" placeholder="Interview Type" className="border-indigo-300 focus:border-indigo-500" />
+                <Input type="text" placeholder="Preferred Role" className="border-indigo-300 focus:border-indigo-500" />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Input type="date" placeholder="Date" className="border-indigo-300 focus:border-indigo-500" />
+                <Input type="time" placeholder="Time" className="border-indigo-300 focus:border-indigo-500" />
+              </div>
+              <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white">
+                Schedule Interview
+                <Plus className="ml-2 h-4 w-4" />
+              </Button>
+            </form>
+          </section>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Quick Notes */}
+            <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+              <h2 className="text-xl font-semibold mb-4 text-indigo-600 dark:text-indigo-400">Quick Notes</h2>
+              <Textarea 
+                placeholder="Jot down your interview preparation notes here..." 
+                className="w-full h-32 border-indigo-300 focus:border-indigo-500"
+              />
+              <Button className="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white">Save Notes</Button>
+            </section>
+
            
+
+            {/* Skills Assessment */}
+            <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+              <h2 className="text-xl font-semibold mb-4 text-indigo-600 dark:text-indigo-400">Skills Assessment</h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">JavaScript</label>
+                  <Progress value={80} className="h-2" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">React</label>
+                  <Progress value={75} className="h-2" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Node.js</label>
+                  <Progress value={60} className="h-2" />
+                </div>
+              </div>
+              <Button className="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white">Update Skills</Button>
+            </section>
+          </div>
+          </div>
+          </main>
         </div>
       </div>
     </div>

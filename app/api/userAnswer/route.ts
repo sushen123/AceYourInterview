@@ -14,19 +14,91 @@ export async  function POST(req: Request) {
     console.log("It work")
     const prisma = await dbConnect()
    try {
-   
-    console.log("It's great to be here")
-    const reponse = await prisma.userAnswer.create({
-        data: {
-            correctAnswer: data.correctAnswer,
-            feedback: data.feedback,
-            question: data.question,
-            rating: parseInt(data.rate),
-            userAnswer: data.userAnswer,
-            userEmail: data.userEmail,
-            mockId: data.mockId
+
+    const questionExist = await prisma.userAnswer.findFirst({
+        where: {
+            mockId: data.mockId,
+            question: data.question
         }
     })
+
+    if(questionExist) {
+        
+        const response = await prisma.userAnswer.update({
+            where: {
+                id: questionExist.id
+            },
+            data: {
+            question: data.question,
+            correctAnswer: data.correctAnswer,
+            userAnswer: data.userAnswer,
+            
+            // Ratings
+            overallRating: parseInt(data.overallRating),
+            contentRating: parseInt(data.contentRating),
+            clarityRating: parseInt(data.clarityRating),
+            relevanceRating: parseInt(data.relevanceRating),
+            confidenceRating: parseInt(data.confidenceRating),
+            problemSolvingRating: data.problemSolvingRating ? parseInt(data.problemSolvingRating) : null,
+            technicalRating: data.technicalRating ? parseInt(data.technicalRating) : null,
+            behavioralInsightRating: data.behavioralInsightRating ? parseInt(data.behavioralInsightRating) : null,
+            situationalJudgmentRating: data.situationalJudgmentRating ? parseInt(data.situationalJudgmentRating) : null,
+            
+            // Feedback
+            contentFeedback: data.confidenceFeedback,
+            clarityFeedback: data.clarityFeedback,
+            relevanceFeedback: data.relevanceFeedback,
+            confidenceFeedback: data.confidenceFeedback,
+            problemSolvingFeedback: data.problemSolvingFeedback || null,
+            technicalFeedback: data.technicalFeedback || null,
+            behavioralInsightFeedback: data.behavioralInsightFeedback || null,
+            situationalJudgmentFeedback: data.situationalJudgmentFeedback || null,
+            
+            userEmail: data.userEmail, 
+            }
+            
+        })
+
+         return NextResponse.json({
+      response
+    })
+
+    }
+   
+    console.log("It's great to be here")
+    const response = await prisma.userAnswer.create({
+        data: {
+            mockId: data.mockId,
+            question: data.question,
+            correctAnswer: data.correctAnswer,
+            userAnswer: data.userAnswer,
+            
+            // Ratings
+            overallRating: parseInt(data.overallRating),
+            contentRating: parseInt(data.contentRating),
+            clarityRating: parseInt(data.clarityRating),
+            relevanceRating: parseInt(data.relevanceRating),
+            confidenceRating: parseInt(data.confidenceRating),
+            problemSolvingRating: data.problemSolvingRating ? parseInt(data.problemSolvingRating) : null,
+            technicalRating: data.technicalRating ? parseInt(data.technicalRating) : null,
+            behavioralInsightRating: data.behavioralInsightRating ? parseInt(data.behavioralInsightRating) : null,
+            situationalJudgmentRating: data.situationalJudgmentRating ? parseInt(data.situationalJudgmentRating) : null,
+            
+            // Feedback
+            contentFeedback: data.confidenceFeedback,
+            clarityFeedback: data.clarityFeedback,
+            relevanceFeedback: data.relevanceFeedback,
+            confidenceFeedback: data.confidenceFeedback,
+            problemSolvingFeedback: data.problemSolvingFeedback || null,
+            technicalFeedback: data.technicalFeedback || null,
+            behavioralInsightFeedback: data.behavioralInsightFeedback || null,
+            situationalJudgmentFeedback: data.situationalJudgmentFeedback || null,
+            
+            userEmail: data.userEmail,
+            createdAt: new Date(),
+            
+        }
+    });
   
 
 
@@ -34,7 +106,7 @@ export async  function POST(req: Request) {
 console.log("I am fine")
 
     return NextResponse.json({
-      reponse
+      response
     })
    } catch (error:any) {
     

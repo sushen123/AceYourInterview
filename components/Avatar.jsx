@@ -131,9 +131,7 @@ export function Avatar(props) {
     
     setAudio(audio);
     audio.onended = onMessagePlayed;
-    audio.addEventListener('ended',() => {
-      message.stop = true
-    })
+    
     
   }, [message]);
 
@@ -317,22 +315,22 @@ export function Avatar(props) {
       <primitive object={nodes.Hips}  />
       <skinnedMesh
         name="Wolf3D_Body"
-        geometry={nodes.Wolf3D_Body.geometry}
+       geometry={nodes.Wolf3D_Body.geometry}
         material={materials.Wolf3D_Body}
         skeleton={nodes.Wolf3D_Body.skeleton}
       />
-      <skinnedMesh
-        name="Wolf3D_Outfit_Bottom"
-        geometry={nodes.Wolf3D_Outfit_Bottom.geometry}
-        material={materials.Wolf3D_Outfit_Bottom}
-        skeleton={nodes.Wolf3D_Outfit_Bottom.skeleton}
-      />
-      <skinnedMesh
+    {/* <skinnedMesh
+      name="Wolf3D_Outfit_Bottom"
+      geometry={nodes.Wolf3D_Outfit_Bottom.geometry}
+      material={materials.Wolf3D_Outfit_Bottom}
+      skeleton={nodes.Wolf3D_Outfit_Bottom.skeleton}
+    />  */}
+      {/* <skinnedMesh
         name="Wolf3D_Outfit_Footwear"
         geometry={nodes.Wolf3D_Outfit_Footwear.geometry}
         material={materials.Wolf3D_Outfit_Footwear}
         skeleton={nodes.Wolf3D_Outfit_Footwear.skeleton}
-      />
+      /> */}
       <skinnedMesh
         name="Wolf3D_Outfit_Top"
         geometry={nodes.Wolf3D_Outfit_Top.geometry}

@@ -22,18 +22,56 @@ model MockInterview {
   createdBy String
   createdAt DateTime @default(now())
   userAnswer UserAnswer[]
+  codingExcercise CodingExcercise[]
 }
 
 model UserAnswer {
-  id Int @id  @default(autoincrement())
-  mockId String
-  question String
-  correctAnswer String
-  userAnswer String
-  feedback String
-  rating Int
-  userEmail String
-  createdAt DateTime @default(now())
-  mockInterview MockInterview @relation(fields: [mockId], references: [mockId])
+  id                       Int            @id @default(autoincrement())
+  mockId                   String         
+  question                 String
+  correctAnswer            String
+  userAnswer               String
+  
+  // Ratings
+  overallRating            Int
+  contentRating            Int
+  clarityRating            Int
+  relevanceRating          Int
+  confidenceRating         Int
+  problemSolvingRating     Int?           // Nullable for non-problem-solving questions
+  technicalRating          Int?           // Nullable for non-technical questions
+  behavioralInsightRating  Int?           // Nullable for non-behavioral questions
+  situationalJudgmentRating Int?          // Nullable for non-situational questions
+
+  // Feedback
+  contentFeedback          String
+  clarityFeedback          String
+  relevanceFeedback        String
+  confidenceFeedback       String
+  problemSolvingFeedback   String?        // Nullable for non-problem-solving questions
+  technicalFeedback        String?        // Nullable for non-technical questions
+  behavioralInsightFeedback String?       // Nullable for non-behavioral questions
+  situationalJudgmentFeedback String?     // Nullable for non-situational questions
+  
+  userEmail                String
+  createdAt                DateTime       @default(now())
+
+  mockInterview            MockInterview  @relation(fields: [mockId], references: [mockId])
 }
 
+
+model CodingExcercise {
+  id Int @id @default(autoincrement())
+  mockId String
+  question String
+  sourcCode String
+  correctness String
+  deviations String
+  edgeCases String
+  spaceComplexity String
+  timeComplexity String
+  userEmail String
+  rate Int
+  createAt DateTime  @default(now())
+  mockInterview         MockInterview @relation(fields: [mockId], references: [mockId])
+}

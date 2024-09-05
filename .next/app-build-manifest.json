@@ -1,17 +1,5 @@
 {
   "pages": {
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/page.css",
-      "static/chunks/app/page.js"
-    ],
-    "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
-    ],
     "/dashboard/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -22,21 +10,38 @@
       "static/chunks/main-app.js",
       "static/chunks/app/dashboard/layout.js"
     ],
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
+    ],
+    "/dashboard/resume/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/resume/page.js"
+    ],
     "/dashboard/mockinterview/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/dashboard/mockinterview/page.css",
       "static/chunks/app/dashboard/mockinterview/page.js"
     ],
-    "/dashboard/interview/[interviewId]/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/interview/[interviewId]/page.js"
+      "static/css/app/page.css",
+      "static/chunks/app/page.js"
     ],
-    "/dashboard/interview/[interviewId]/start/page": [
+    "/dashboard/mockinterview/peerInterview/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/interview/[interviewId]/start/page.js"
+      "static/chunks/app/dashboard/mockinterview/peerInterview/page.js"
+    ],
+    "/dashboard/coverletter/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/coverletter/page.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",

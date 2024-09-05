@@ -15,16 +15,15 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { MoonIcon, SunIcon } from "lucide-react";
+import { BookCheck, MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
+import { UserCheck, FileText, BookOpen, Briefcase, Zap, Bell, Settings, LogOut, Users, Calendar, ChevronUp, Award } from 'lucide-react';
 
-import { useEffect } from "react";
-import { BentoGridThirdDemo } from "./__components/BentoGrid";
+import { useRouter } from "next/navigation";
 
 
 
 export default function Home() {
-
 
   const links = [
     {
@@ -189,37 +188,56 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false)
   const {setTheme} = useTheme()
   const [themeCondition, setThemeCondition] = useState(false)
+  const router = useRouter()
   
 
+  const features = [
+    {
+      icon: <UserCheck />,
+      title: "AI Interview",
+      description: "Practice with our AI interviewer",
+      onClick: () => router.push('/dashboard/mockinterview'),
+      bgColor: "bg-blue-600"
+    },
+    {
+      icon: <FileText />,
+      title: "Resume Builder",
+      description: "Craft your professional resume",
+      onClick: () => router.push('/dashboard/resume'),
+      bgColor: "bg-green-600"
+    },
+    {
+      icon: <Briefcase />,
+      title: "Job Matcher",
+      description: "Find jobs tailored to your skills",
+      onClick: () => router.push('/dashboard/autoapply'),
+      bgColor: "bg-purple-600"
+    },
+    {
+      icon: <BookOpen />,
+      title: "Learn & Grow",
+      description: "Access courses and resources",
+      onClick: () => router.push('/dashboard/resources'),
+      bgColor: "bg-yellow-600"
+    },
+    {
+      icon: <Users />,
+      title: "Networking",
+      description: "Connect with professionals",
+      onClick: () => router.push('/dashboard/communities'),
+      bgColor: "bg-indigo-600"
+    },
+    {
+      icon: <BookCheck />,
+      title: "CoverLetter",
+      description: "Let AI make your cover letter",
+      onClick: () => router.push('/dashboard/events'),
+      bgColor: "bg-red-600"
+    }
+  ];
  
 
-  if(loading) {
-    return (
-      <div className=" ">
-        
-        <div className="p-2 md:p-10 rounded-tl-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 flex flex-col gap-2 flex-1 w-full h-full">
-       
-          <div className="flex gap-2">
-            {[...new Array(4)].map((i) => (
-              <div
-                key={"first-array" + i}
-                className="h-20 w-full rounded-lg  bg-gray-100 dark:bg-neutral-800 animate-pulse"
-              ></div>
-            ))}
-          </div>
-          <div className="flex gap-2 flex-1">
-            {[...new Array(2)].map((i) => (
-              <div
-                key={"second-array" + i}
-                className="h-full w-full rounded-lg  bg-gray-300 dark:bg-neutral-800 animate-pulse"
-              ></div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
+  
 
   return (
     <div className="w-screen">
@@ -250,33 +268,112 @@ const Dashboard = () => {
 
       </div>
       <div className=" bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] grid grid-row-12 h-auto text-black dark:text-white  bg-white dark:bg-neutral-700  rounded-s-3xl">
-      <div className=" row-span-1 flex justify-center flex-col">
-        <h1 className="ml-10 text-blue-400 text-3xl dark:text-blue-300 flex items-center ">
-        Welcome Sushen Oli {" "} 
-        <span className="ml-2 ">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-7 text-yellow-400">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M10.05 4.575a1.575 1.575 0 1 0-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 0 1 3.15 0v1.5m-3.15 0 .075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 0 1 3.15 0V15M6.9 7.575a1.575 1.575 0 1 0-3.15 0v8.175a6.75 6.75 0 0 0 6.75 6.75h2.018a5.25 5.25 0 0 0 3.712-1.538l1.732-1.732a5.25 5.25 0 0 0 1.538-3.712l.003-2.024a.668.668 0 0 1 .198-.471 1.575 1.575 0 1 0-2.228-2.228 3.818 3.818 0 0 0-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0 1 16.35 15m.002 0h-.002" />
-</svg>
-          </span> 
-        </h1>
-        <p className="ml-10 flex md:text-lg">
-          Let's learn, practice and land your job with{"  "}
-          <span className="">
-            AceYourInterview
-          </span>
-        </p>
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-white">
+
+      <div className="container mx-auto px-4 py-8">
+        <header className="mb-12 flex items-center justify-between">
+          <div>
+            <h2 className="text-3xl font-bold mb-2">Welcome back, Sushen!</h2>
+            <p className="text-gray-600 dark:text-gray-400">Your career journey continues here.</p>
+          </div>
+          <img src="/api/placeholder/100/100" alt="User Avatar" className="rounded-full w-16 h-16 object-cover" />
+        </header>
+
+        <section className="mb-12">
+          <h3 className="text-2xl font-semibold mb-6">Your Career Dashboard</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((feature, index) => (
+              <FeatureCard key={index} {...feature} />
+            ))}
+          </div>
+        </section>
+
+        <section className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 lg:col-span-2">
+            <h3 className="text-2xl font-semibold mb-6">Career Progress</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h4 className="font-semibold mb-2">Skills Growth</h4>
+                <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                  <div className="bg-blue-600 h-2.5 rounded-full" style={{width: '70%'}}></div>
+                </div>
+                <p className="text-sm text-gray-600 dark:text-gray-400">7 out of 10 key skills mastered</p>
+              </div>
+              <div>
+                <h4 className="font-semibold mb-2">Interview Readiness</h4>
+                <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                  <div className="bg-green-500 h-2.5 rounded-full" style={{width: '85%'}}></div>
+                </div>
+                <p className="text-sm text-gray-600 dark:text-gray-400">85% ready for your next interview</p>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+            <h3 className="text-2xl font-semibold mb-6">Upcoming Events</h3>
+            <ul className="space-y-4">
+              <li className="flex items-center space-x-3">
+                <Calendar className="text-blue-500" />
+                <div>
+                  <p className="font-semibold">Tech Career Fair</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Sep 15, 10:00 AM</p>
+                </div>
+              </li>
+              <li className="flex items-center space-x-3">
+                <Users className="text-green-500" />
+                <div>
+                  <p className="font-semibold">Networking Webinar</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Sep 20, 2:00 PM</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+            <h3 className="text-2xl font-semibold mb-6">Job Market Insights</h3>
+            <ul className="space-y-4">
+              <li className="flex items-center justify-between">
+                <span>Frontend Developer</span>
+                <span className="flex items-center text-green-500"><ChevronUp size={16} className="mr-1" /> 12% growth</span>
+              </li>
+              <li className="flex items-center justify-between">
+                <span>Data Scientist</span>
+                <span className="flex items-center text-green-500"><ChevronUp size={16} className="mr-1" /> 18% growth</span>
+              </li>
+            </ul>
+          </div>
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+            <h3 className="text-2xl font-semibold mb-6">Your Achievements</h3>
+            <ul className="space-y-4">
+              <li className="flex items-center space-x-3">
+                <Award className="text-yellow-500" />
+                <span>Completed 10 Mock Interviews</span>
+              </li>
+              <li className="flex items-center space-x-3">
+                <Award className="text-yellow-500" />
+                <span>Resume Optimization Expert</span>
+              </li>
+            </ul>
+          </div>
+        </section>
       </div>
-      <div className="row-span-11 ml-10">
-        <div>
-         <h1 className="text-lg font-bold text-slate-600 dark:text-white">
-          Our Services
-          </h1> 
-        </div>
-        <div className="">
-          <BentoGridThirdDemo key={1} />
-        </div>
-      </div>
+    </div>
       </div>
     </div>
   )
 };
+
+
+const FeatureCard = ({ icon, title, description, onClick, bgColor }) => (
+  <div 
+    onClick={onClick}
+    className={`${bgColor} rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:scale-105 cursor-pointer text-white`}
+  >
+    <div className="flex items-center mb-4">
+      {React.cloneElement(icon, { size: 32 })}
+      <h3 className="text-xl font-semibold ml-4">{title}</h3>
+    </div>
+    <p className="text-white/80">{description}</p>
+  </div>
+);

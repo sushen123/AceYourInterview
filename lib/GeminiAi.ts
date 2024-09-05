@@ -16,6 +16,7 @@ const {
     GoogleGenerativeAI,
     HarmCategory,
     HarmBlockThreshold,
+    
   } = require("@google/generative-ai");
 
   
@@ -23,24 +24,62 @@ const {
   const genAI = new GoogleGenerativeAI(apiKey);
 
   
+  const safetySettings = [
+    {
+      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
+    },
+    
+  ];
 
 
   const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
-    
+    safetySettings
   });
   
   const generationConfig = {
-    temperature: 1,
-    topP: 0.95,
+    temperature: 2,
+    topP: 0.85,
     topK: 64,
-    maxOutputTokens: 8192,
+    maxOutputTokens: 10000,
     responseMimeType: "text/plain",
   };
   
+
+  const generationConfigforPro = {
+    temperature: 0.5,
+    topP: 1.0,
+    topK: 1,
+    randomSeed: 42,
+    maxOutputTokens: 5000,
+    responseMimeType: "text/plain",
+  }
 
  export const chatSession = model.startChat({
       generationConfig,
    
  })
   
+const latestModel = genAI.getGenerativeModel({
+  model: "gemini-1.5-flash",
+  safetySettings
+})
+
+export const chatSessions = latestModel.startChat({
+  generationConfigforPro,
+
+})
+

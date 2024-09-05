@@ -41,6 +41,7 @@ export const ChatProvider = ({ children }) => {
     const metadata:any = await parseBuffer(Buffer.from(data), 'audio/mpeg')
 
     const duration = Math.floor(metadata.format.duration)
+    const realDuration = Math.floor(metadata.format.duration*1000)
     console.log(duration)
     let lipsync
     for(let j=0; j< lipSyncJson.length; j++) {
@@ -54,7 +55,8 @@ export const ChatProvider = ({ children }) => {
         lipsync:  lipsync,
         animation: message[0].animation,
         duration: duration,
-        stop:false
+        realDuration: realDuration
+        
     }]
    //@ts-ignore
     setMessages((messages) => [...messages, ...resp]);

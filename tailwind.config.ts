@@ -82,11 +82,21 @@ const config: Config = {
           '100%': {
             transform: 'translateX(-50%)',
           },
+
+        },
+        ripple: {
+          "0%, 100%": {
+            transform: "translate(-50%, -50%) scale(1)",
+          },
+          "50%": {
+            transform: "translate(-50%, -50%) scale(0.9)",
+          },
         },
       },
 
       animation: {
         marquee: '30s marquee linear infinite',
+        ripple: "ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite",
       },
 
       backgroundImage: {
@@ -99,6 +109,7 @@ const config: Config = {
 
   plugins: [
     require('tailwindcss-animate'),
+    require('tailwind-scrollbar')({ nocompatible: true }),
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
   ],
