@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 @layer base {
   :root {
     --hard-shadow: 0px 29px 52px 0px rgba(0, 0, 0, 0.4),
@@ -61,7 +63,7 @@
   }
 
   * {
-    @apply font-mono;
+    @apply font-roboto;
   }
 
   h1,
@@ -73,7 +75,7 @@
   p,
   div,
   button{
-    @apply font-semibold font-display;
+    @apply  font-display;
   }
 }
 
@@ -192,4 +194,37 @@
   .page {
     page-break-after: always;
   }
+}
+
+@layer utilities {
+  
+
+  .classy-scrollbar::-webkit-scrollbar {
+    width: 2px; /* Thin scrollbar width for WebKit browsers */
+  }
+
+  .classy-scrollbar::-webkit-scrollbar-track {
+    background: transparent; /* Transparent track */
+  }
+
+  .classy-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #4f6d92, #1e3a8a); /* Gradient thumb */
+    border-radius: 9999px; /* Fully rounded */
+  }
+
+  .classy-scrollbar::-webkit-scrollbar {
+    width: 5px; /* Thin scrollbar width for WebKit browsers */
+  }
+
+  .classy-scrollbar::-webkit-scrollbar-track {
+    background: white; /* Transparent track */
+  }
+
+  .classy-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #4f6d92, #1e3a8a); /* Gradient thumb */
+    border-radius: 9999px; /* Fully rounded */
+
+  }
+
+
 }
