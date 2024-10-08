@@ -47,8 +47,10 @@ function getCommaSeparatedString(value: FormDataEntryValue | null): string {
 // Helper function to upload files to Cloudinary
 // Helper function to upload files to Cloudinary
 const getFileExtension = (filename: string): string => {
-  return filename.split('.').pop().toLowerCase();
+  const extension = filename.split('.').pop();
+  return extension ? extension.toLowerCase() : ''; // Return an empty string if undefined
 };
+
 
 const getResourceType = (extension: string): string => {
   const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
