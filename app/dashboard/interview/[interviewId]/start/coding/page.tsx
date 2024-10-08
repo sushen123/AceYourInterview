@@ -15,6 +15,7 @@ import {executeCode} from './api'
 import { PlayIcon } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Home({params}) {
     const avatarMessage = "Here is your last coding problem. It’s designed to challenge your skills and showcase your problem-solving approach. Analyze the problem carefully and provide an optimal solution"
@@ -62,7 +63,10 @@ export default function Home({params}) {
         console.log("hello")
     },[])
 
+    const session = useSession()
+
     const submitCode = async () => {
+      //@ts-ignore
       const sourceCode = editorRef.current.getValue();
       if (!sourceCode) return;
   
@@ -134,7 +138,7 @@ Please provide the feedback and rating in the following JSON format:
                 timeComplexity: feedbackMessage.timeComplexity,
                 spaceComplexity: feedbackMessage.spaceComplexity,
                 rate: rating,
-                userEmail: "sushensame@gmail.com" || "",
+                userEmail:  session.data.user.email,
             }
         });
 
