@@ -117,7 +117,7 @@ export default function Component() {
 \
         </>
       }
-      imageSrc="/static/images/backdrop-19.webp"
+      imageSrc="/resume.png"
       imageAlt="Screenshot of the product"
       imagePosition="left"
       imagePerspective="bottom"
