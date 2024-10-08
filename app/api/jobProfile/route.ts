@@ -84,6 +84,7 @@ const uploadFileToCloudinary = (
       format: extension === 'pdf' ? 'pdf' : undefined,
       type: 'upload',
       access_mode: 'public',
+
     
     };
 
@@ -91,6 +92,7 @@ const uploadFileToCloudinary = (
     console.log("Cloudinary config:", cloudinary.config());
 
     const uploadStream = cloudinary.uploader.upload_stream(
+      //@ts-ignore
       uploadOptions,
       (error, result) => {
         if (error) {
