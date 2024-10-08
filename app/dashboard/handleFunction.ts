@@ -1,6 +1,6 @@
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation"; 
-import router = useRouter()
+const router = useRouter()
 
 export const handleSignOut = async () => {
     try {
