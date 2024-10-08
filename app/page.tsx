@@ -124,15 +124,15 @@ export default function Component() {
     />
 
    
-    <div id='features'>
-    <LandingFeatureList
-      title={'Nothing quite like it.'}
-      description={
-        'Shipixen sets up everything you need to start working on your blog, website or product.'
-      }
-      featureItems={featureItems}
-    />
-     </div>
+<div id='features'>
+  <LandingFeatureList
+    title={'Unleash Your Creativity.'}
+    description={
+      'AceYourInterview provides all the tools you need to ace your interviews, build stunning resumes, and generate tailored cover letters effortlessly.'
+    }
+    featureItems={featureItems}
+  />
+</div>
      
     <div id='faq'>
     <LandingFaqCollapsibleSection
