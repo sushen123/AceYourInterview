@@ -120,7 +120,7 @@ import { CheckIcon, ChevronRightIcon } from "lucide-react";
 
 import { AnimatedSubscribeButton } from "@/components/magicui/animated-subscribe-button";
 
-export function AnimatedSubscribeButtonDemo({setWebcamEnabled}) {
+ function AnimatedSubscribeButtonDemo({setWebcamEnabled}) {
   return (
     <AnimatedSubscribeButton 
       buttonColor="#8fe57e"
