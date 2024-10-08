@@ -10,15 +10,15 @@ export async function POST(req: NextRequest) {
    console.log(body)
 
    try {
+   
     const userId = await prisma.user.findFirst({
         where: {
             email: body.email
         }
        })
-    
+       if(userId){
        const result = await prisma.resumeDetails.create({
-        data: {
-            
+        data: {         
             template: body.template,
             userId: userId?.id,
             name: body.name,
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
         message: "Resume Created Successfully",
         id: resumeId
        })
-    
+    }
    } catch (error) {
     console.log(error)
       return Response.json({
