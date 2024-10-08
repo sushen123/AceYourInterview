@@ -506,6 +506,7 @@ useEffect(() => {
             <CardContent>
               <ul className="list-disc list-inside space-y-2 text-sm">
                 {overallImprovementSuggestions.map((suggestion, index) => (
+                  //@ts-ignore
                   <li key={index}>{suggestion}
                   <Separator />
                   </li>
