@@ -6,7 +6,7 @@ import { VideoPlayer } from '@/components/shared/VideoPlayer';
 import useTheme from '@/lib/themeMode';
 import { ButtonShootingStarBorder } from '@/components/ui/styleButton';
 import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { Link } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -293,6 +293,7 @@ export const LandingPrimaryVideoCtaSection = ({
 }) => {
 
   const [isScrolled, setIsScrolled] = useState(false)
+const router = useRouter()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -333,12 +334,13 @@ export const LandingPrimaryVideoCtaSection = ({
           <div className='hidden md:flex justify-around w-1/3'>
           <a href="#home" className=''>Home</a>
           <a href="#features">Features</a>
-          <a href="#pricing">Pricing</a>
-          <a href="/blog">Blog</a>
+          <a href="#faq">FAQ</a>
           </div>
         <div>
-          <Button className='bg-green-300'>
-            Sign Up
+          <Button onClick={() => {
+            router.push("/signin")
+          }} className='bg-green-300'>
+            Sign In
           </Button>
         </div>
       </div>

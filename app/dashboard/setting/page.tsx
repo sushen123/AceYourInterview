@@ -9,12 +9,21 @@ import {
 
 import Link from "next/link";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { MoonIcon } from "lucide-react";
+import { Check, Loader2, LogOut, Mail, MoonIcon, User, X } from "lucide-react";
 import { useTheme } from "next-themes";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { useToast } from "@/hooks/use-toast";
+import { Avatar } from "@/components/ui/avatar";
+import { AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 
 
@@ -45,6 +54,7 @@ export default function Home() {
       
       ),
     },
+    
    
     {
       label: "Resume AI",
@@ -54,38 +64,6 @@ export default function Home() {
         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
       </svg>
       
-      ),
-    },
-    {
-      label: "Cover Letter AI",
-      href: "/dashboard/coverletter",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 text-black dark:text-white">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
-</svg>
-
-      ),
-    },
-    {
-      label: "Resources",
-      href: "/dashboard/resources",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 text-black dark:text-white">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
-      </svg>
-      
-
-      ),
-    },
-    {
-      label: "AutoApplyJob AI",
-      href: "/dashboard/autoapply",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 text-black dark:text-white">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z" />
-      </svg>
-      
-
       ),
     },
    
@@ -103,7 +81,7 @@ export default function Home() {
     <div
       className={cn(
         "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 max-w-7xl mx-auto border border-neutral-200 dark:border-neutral-700 overflow-hidden",
-        "h-[]" 
+        "h-[100vh]" 
       )}
     >
       <Sidebar open={open} setOpen={setOpen}  >
@@ -112,27 +90,13 @@ export default function Home() {
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
-                <SidebarLink key={idx} link={link} className="" />
+                link.label === "Setting" ? 
+                (<SidebarLink key={idx} link={link} className="bg-blue-500 rounded-full   p-1" />) 
+                : (<SidebarLink key={idx} link={link} className="" />)
               ))}
             </div>
           </div>
-          <div>
-            <SidebarLink
-              link={{
-                label: "Sushen Oli",
-                href: "#",
-                icon: (
-                  <Image
-                    src="/logo.png"
-                    className="h-7 w-7 flex-shrink-0 rounded-full"
-                    width={50}
-                    height={50}
-                    alt="Avatar"
-                  />
-                ),
-              }}
-            />
-          </div>
+         
 
         </SidebarBody>
       </Sidebar>
@@ -183,50 +147,169 @@ export const LogoIcon = () => {
 };
 
 
-const Dashboard = () => {
+ function Dashboard() {
+  const [name, setName] = useState<string | null>()
+  const [email, setEmail] = useState<string |null>()
+  const [editingName, setEditingName] = useState(false)
+  const [editingEmail, setEditingEmail] = useState(false)
+  const [loading, setLoading] = useState({ name: false, email: false, signout: false })
+  const { toast } = useToast()
+  const session = useSession()
+  const router = useRouter()
+  const [imageUrl, setImageUrl] = useState('https://i.pravatar.cc/300')
  
-  const {setTheme} = useTheme()
 
-  const [themeCondition, setThemeCondition] = useState(false)
  
+  useEffect(() => {
+    setName(session.data?.user?.name)
+    setEmail(session.data?.user?.email)
+    setImageUrl(session.data?.user?.image)
+  },[session])
 
+  const handleUpdate = async (field: 'name' | 'email') => {
+    setLoading({ ...loading, [field]: true })
+    try {
+      // Simulating an API call with a delay
+       if(field === "name") {
+        const response = await axios.put("/api/profile", 
+          {
+            email: email,
+            name: name
+          }
+        )
+       }
+      
+      
+      toast({
+        title: "Update Successful",
+        description: `Your ${field} has been updated.`,
+      })
+      if (field === 'name') setEditingName(false)
+      if (field === 'email') setEditingEmail(false)
+    } catch (error) {
+      toast({
+        title: "Update Failed",
+        description: `Failed to update your ${field}. Please try again.`,
+        variant: "destructive",
+      })
+    } finally {
+      setLoading({ ...loading, [field]: false })
+    }
+  }
 
+  const handleSignOut = async () => {
+    try {
+      await signOut({ redirect: false });
+      router.push("/signin");
+    } catch (error) {
+      console.error("Sign out failed", error);
+    }
+  };
 
-
-  
+ 
 
   return (
-    <div className="w-screen  ">
-      <div className="text-black dark:text-white  hidden md:flex  justify-end h-10  ">
-      <Button  className="flex" >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6 text-black dark:text-white mr-2">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
-          </svg>
-          </Button>
-          <Button  size="icon" className="mr-5" onClick={() => {
-                    if(themeCondition) {
-              setTheme("light")
-              setThemeCondition(false)
-            } else {
-              setTheme("dark")
-              setThemeCondition(true)
-            }
-    }}>
-      {!themeCondition ? (
-         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-black dark:text-white">
-         <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-       </svg>
-       
-      ) : (
-        <MoonIcon className=" text-white darkrotate-90 h-6 w-6 " />
-      )}
-      </Button>
+    <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.5 }}
+    className="w-full bg-gradient-to-b from-gray-100 to-white"
+  >
+    <div className="w-full bg-gradient-to-r from-purple-500 to-pink-500 p-8">
+      <h1 className="text-4xl font-bold text-center text-white">Profile Settings</h1>
+    </div>
+    <div className="max-w-4xl mx-auto p-6 space-y-8">
+      <motion.div 
+        className="flex justify-center -mt-16"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <Avatar className="w-32 h-32 border-4 border-white shadow-lg">
+          <AvatarImage src={imageUrl} alt="User avatar" />
+          <AvatarFallback className="text-4xl bg-gradient-to-br from-purple-500 to-pink-500 text-white">
+          {name?.split(' ').map(n => n[0]).join('')}
+          </AvatarFallback>
+        </Avatar>
+      </motion.div>
+      
+      <div className="space-y-6">
+        <AnimatePresence mode="wait">
+          {editingName ? (
+            <motion.div
+              key="edit-name"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.2 }}
+              className="bg-white rounded-lg shadow-md p-4"
+            >
+              <label htmlFor="name" className="text-lg font-semibold flex items-center gap-2 mb-2">
+                <User className="w-5 h-5" /> Name
+              </label>
+              <div className="flex items-center space-x-2">
+                <Input
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="flex-grow"
+                />
+                <Button 
+                  onClick={() => handleUpdate('name')} 
+                  disabled={loading.name}
+                  size="icon"
+                >
+                  {loading.name ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => setEditingName(false)}
+                  size="icon"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="display-name"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.2 }}
+              className="bg-white rounded-lg shadow-md p-4 flex items-center justify-between"
+            >
+              <div className="flex items-center gap-2">
+                <User className="w-5 h-5 text-gray-500" />
+                <span className="text-lg font-medium">{name}</span>
+              </div>
+              <Button 
+                variant="ghost"
+                onClick={() => setEditingName(true)}
+              >
+                Edit
+              </Button>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
+       
       </div>
-      <div className="  bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] grid grid-row-12 h-full text-black dark:text-white  bg-white dark:bg-neutral-700  rounded-s-3xl">
-        
+
+      <div className="pt-6">
+        <Button 
+          variant="destructive" 
+          onClick={handleSignOut}
+          disabled={loading.signout}
+          className="w-full"
+        >
+          {loading.signout ? (
+            <Loader2 className="h-4 w-4 animate-spin mr-2" />
+          ) : (
+            <LogOut className="h-4 w-4 mr-2" />
+          )}
+          Sign Out
+        </Button>
       </div>
     </div>
-  )
-};
-
+  </motion.div>
+)}

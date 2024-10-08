@@ -105,8 +105,6 @@ export default function StartInterview({params}: {params:string}) {
       }
     };
 
-   
-
     useEffect(() => {
       GetInterviewDetails()
      

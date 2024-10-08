@@ -1,5 +1,8 @@
 {
-  "/dashboard/resume/theme3/page": "app/dashboard/resume/theme3/page.js",
-  "/dashboard/resume/page": "app/dashboard/resume/page.js",
-  "/dashboard/resume/theme1/page": "app/dashboard/resume/theme1/page.js"
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/dashboard/interview/[interviewId]/page": "app/dashboard/interview/[interviewId]/page.js",
+  "/dashboard/interview/[interviewId]/start/page": "app/dashboard/interview/[interviewId]/start/page.js",
+  "/dashboard/interview/[interviewId]/start/coding/page": "app/dashboard/interview/[interviewId]/start/coding/page.js",
+  "/dashboard/interview/[interviewId]/result/page": "app/dashboard/interview/[interviewId]/result/page.js"
 }

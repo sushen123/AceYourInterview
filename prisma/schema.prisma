@@ -13,65 +13,231 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+
+model User {
+  id                     String           @id @default(uuid())
+  name                   String?
+  email                  String?          @unique
+  emailVerified          DateTime?
+  image                  String?
+  accounts               Account[]
+  sessions               Session[]
+  extensionKey           String           @default(uuid())
+  role                   UserRole         @default(USER)
+  authType               AuthType         @default(EMAIL)
+  isGuest                Boolean          @default(false)
+  createdAt              DateTime         @default(now())
+  updatedAt              DateTime         @updatedAt
+  level                  UserLevel        @default(FREE)
+  mockInterviewLimit     Int              @default(2)
+  totalMockInterviews    Int              @default(0)
+
+  mockInterview          MockInterview[]
+  resumeDetails          ResumeDetails[]
+  coverLetters            coveLetters[]
+  interviewsAsInterviewer PeerInterview[] @relation("Interviewer")
+  interviewsAsInterviewee PeerInterview[] @relation("Interviewee")
+}
+
+model Account {
+  id                 String    @id @default(uuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?   @db.Text
+  access_token       String?   @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?   @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum AuthType {
+  EMAIL
+  GOOGLE
+  GUEST
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum UserLevel {
+  FREE
+  PREMIUM
+}
+
 model MockInterview {
-  mockId String @id @default(uuid())
+  mockId           String          @id @default(uuid())
+  userId           String
   jsonMockResponse String
-  jobPosition String
-  jobDescriptoin String
-  jobExperience String
-  createdBy String
-  createdAt DateTime @default(now())
-  userAnswer UserAnswer[]
-  codingExcercise CodingExcercise[]
+  jobPosition      String
+  jobDescriptoin   String
+  jobExperience    String
+  createdBy        String
+  createdAt        DateTime         @default(now())
+  User             User             @relation(fields: [userId], references: [id])
+  userAnswer       UserAnswer[]
+  codingExcercise  CodingExcercise[]
+
 }
 
 model UserAnswer {
-  id                       Int            @id @default(autoincrement())
-  mockId                   String         
-  question                 String
-  correctAnswer            String
-  userAnswer               String
-  
+  id                        Int             @id @default(autoincrement())
+  mockId                    String
+  question                  String
+  correctAnswer             String
+  userAnswer                String
+
   // Ratings
-  overallRating            Int
-  contentRating            Int
-  clarityRating            Int
-  relevanceRating          Int
-  confidenceRating         Int
-  problemSolvingRating     Int?           // Nullable for non-problem-solving questions
-  technicalRating          Int?           // Nullable for non-technical questions
-  behavioralInsightRating  Int?           // Nullable for non-behavioral questions
-  situationalJudgmentRating Int?          // Nullable for non-situational questions
+  overallRating             Int
+  contentRating             Int
+  clarityRating             Int
+  relevanceRating           Int
+  confidenceRating          Int
+  problemSolvingRating      Int?            // Nullable for non-problem-solving questions
+  technicalRating           Int?            // Nullable for non-technical questions
+  behavioralInsightRating   Int?            // Nullable for non-behavioral questions
+  situationalJudgmentRating Int?            // Nullable for non-situational questions
 
   // Feedback
-  contentFeedback          String
-  clarityFeedback          String
-  relevanceFeedback        String
-  confidenceFeedback       String
-  problemSolvingFeedback   String?        // Nullable for non-problem-solving questions
-  technicalFeedback        String?        // Nullable for non-technical questions
-  behavioralInsightFeedback String?       // Nullable for non-behavioral questions
-  situationalJudgmentFeedback String?     // Nullable for non-situational questions
-  
-  userEmail                String
-  createdAt                DateTime       @default(now())
+  contentFeedback           String
+  clarityFeedback           String
+  relevanceFeedback         String
+  confidenceFeedback        String
+  problemSolvingFeedback    String?         // Nullable for non-problem-solving questions
+  technicalFeedback         String?         // Nullable for non-technical questions
+  behavioralInsightFeedback String?         // Nullable for non-behavioral questions
+  situationalJudgmentFeedback String?       // Nullable for non-situational questions
 
-  mockInterview            MockInterview  @relation(fields: [mockId], references: [mockId])
+  userEmail                 String
+  createdAt                 DateTime        @default(now())
+
+  mockInterview             MockInterview   @relation(fields: [mockId], references: [mockId])
 }
-
 
 model CodingExcercise {
-  id Int @id @default(autoincrement())
-  mockId String
-  question String
-  sourcCode String
-  correctness String
-  deviations String
-  edgeCases String
+  id              Int            @id @default(autoincrement())
+  mockId          String
+  question        String
+  sourcCode       String
+  correctness     String
+  deviations      String
+  edgeCases       String
   spaceComplexity String
-  timeComplexity String
-  userEmail String
-  rate Int
-  createAt DateTime  @default(now())
-  mockInterview         MockInterview @relation(fields: [mockId], references: [mockId])
+  timeComplexity  String
+  userEmail       String
+  rate            Int
+  createAt        DateTime        @default(now())
+  mockInterview   MockInterview   @relation(fields: [mockId], references: [mockId])
 }
+
+model ResumeDetails {
+  id        String       @id @default(uuid())
+  name String
+  userId    String
+  resumeData Json?
+  template  String
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  User      User         @relation(fields: [userId], references: [id])
+}
+
+model coveLetters {
+  id        String       @id @default(uuid())
+  name    String
+  userId    String
+  resumeData Json?
+  template  String?
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  User      User         @relation(fields: [userId], references: [id])
+}
+
+
+
+model PeerInterview {
+  id                    String            @id @default(uuid())
+  interviewerId         String
+  intervieweeId         String
+  status                InterviewStatus   @default(PENDING) // PENDING, IN_PROGRESS, COMPLETED, ABANDONED
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+  closedByMutualConsent Boolean           @default(false)   // Indicates if both parties agreed to close
+  interviewEndTime      DateTime?                          // Tracks when the interview ended
+
+  // Relations
+  interviewer           User              @relation("Interviewer", fields: [interviewerId], references: [id])
+  interviewee           User              @relation("Interviewee", fields: [intervieweeId], references: [id])
+
+  // Ratings
+  interviewerRating     Rating?           @relation("InterviewerRating", fields: [interviewerRatingId], references: [id])
+  intervieweeRating     Rating?           @relation("IntervieweeRating", fields: [intervieweeRatingId], references: [id])
+  interviewerRatingId   String?
+  intervieweeRatingId   String?
+
+  // Punishment Status
+  punishmentStatus      PunishmentStatus  @default(NO_PUNISHMENT) // Defines the punishment status for the interview
+
+  // Punishment handling
+  interviewerPenalty    Penalty?          @relation("InterviewerPenalty", fields: [interviewerPenaltyId], references: [id])
+  intervieweePenalty    Penalty?          @relation("IntervieweePenalty", fields: [intervieweePenaltyId], references: [id])
+  interviewerPenaltyId  String?
+  intervieweePenaltyId  String?
+}
+
+model Rating {
+  id                String    @id @default(uuid())
+  rating            Int       // 1-5 scale for the rating
+  feedback          String?   // Optional feedback for additional context
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  // New relation fields
+  interviewerRatings PeerInterview[] @relation("InterviewerRating")
+  intervieweeRatings PeerInterview[] @relation("IntervieweeRating")
+}
+
+model Penalty { 
+  id                  String   @id @default(uuid())
+  reason              String   // Reason for punishment
+  issuedAt            DateTime @default(now())
+  interviewerPenalized Boolean @default(false)
+  intervieweePenalized Boolean @default(false)
+
+  // New relation fields
+  interviewerPenalties PeerInterview[] @relation("InterviewerPenalty")
+  intervieweePenalties PeerInterview[] @relation("IntervieweePenalty")
+}
+
+enum InterviewStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  ABANDONED
+}
+
+enum PunishmentStatus {
+  NO_PUNISHMENT
+  INTERVIEWER_PENALIZED
+  INTERVIEWEE_PENALIZED
+  BOTH_PENALIZED
+  MUTUALLY_CLOSED
+}
+

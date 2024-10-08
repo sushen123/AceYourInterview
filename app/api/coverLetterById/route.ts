@@ -1,0 +1,31 @@
+import { dbConnect } from "@/lib/db";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function GET(req: NextRequest) {
+    const { searchParams } = new URL(req.url);
+ 
+    const coverLetterId = searchParams.get('id')
+
+  
+    const prisma = await dbConnect();
+
+    try {
+       
+      
+        const resume = await prisma.coveLetters.findFirst({
+            where: { id: coverLetterId || "" }
+           
+        });
+        console.log(resume)
+
+        return NextResponse.json({
+            message: "Fetched Successfully",
+            resume: resume,
+          
+        });
+
+    } catch (error) {
+        console.error("Error fetching resumes:", error);
+        return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    } 
+}

@@ -1,171 +1,75 @@
 import { Button } from '@/components/shared/ui/button';
 import { LandingPrimaryVideoCtaSection } from '@/components/landing/cta/LandingPrimaryCta';
-import { LandingProductHuntAward } from '@/components/landing/social-proof/LandingProductHuntAward';
-import { LandingSocialProof } from '@/components/landing/social-proof/LandingSocialProof';
+
 import { LandingDiscount } from '@/components/landing/discount/LandingDiscount';
-import { LandingBandSection } from '@/components/landing/LandingBand';
+
 import { LandingProductFeature } from '@/components/landing/LandingProductFeature';
 import { LandingProductFeatureKeyPoints } from '@/components/landing/LandingProductFeatureKeyPoints';
-import { LandingProductVideoFeature } from '@/components/landing/LandingProductVideoFeature';
-import { LandingSaleCtaSection } from '@/components/landing/cta/LandingSaleCta';
-import { FacebookIcon, GithubIcon, Instagram, LayersIcon, LineChartIcon, Linkedin, LinkedinIcon, SparklesIcon, ThumbsUpIcon, ZapIcon } from 'lucide-react';
-import { LandingTestimonialReadMoreWrapper } from '@/components/landing/testimonial/LandingTestimonialReadMoreWrapper';
-import { LandingTestimonialGrid } from '@/components/landing/testimonial/LandingTestimonialGrid';
-import { LandingFaqSection } from '@/components/landing/LandingFaq';
+import { Book, FacebookIcon, GithubIcon, Instagram, LayersIcon, LetterTextIcon, LineChartIcon, Linkedin, LinkedinIcon, SparklesIcon, ThumbsUpIcon, Trophy, Video, ZapIcon } from 'lucide-react';
+
 import { LandingFeatureList } from '@/components/landing/feature/LandingFeatureList';
-import { LandingSocialProofBand } from '@/components/landing/social-proof/LandingSocialProofBand';
-import { LandingSocialProofBandItem } from '@/components/landing/social-proof/LandingSocialProofBandItem';
-import PricingPage from '@/components/landing/PricingPage';
+
 import { LandingFaqCollapsibleSection } from '@/components/landing/LandingFaqCollapsible';
 import Image from 'next/image';
 
 
 
 export default function Component() {
-  const avatarItems = [
-    {
-      imageSrc: '/logo/png',
-      name: 'John Doe',
-    },
-    {
-      imageSrc: '/logo/png',
-      name: 'Jane Doe',
-    },
-    {
-      imageSrc: '/logo/png',
-      name: 'Alice Doe',
-    },
-  ];
-
-  const avatarItems2 = [
-    {
-      imageSrc: '/logo/png',
-      name: 'John Doe',
-    },
-    {
-      imageSrc: '/logo/png',
-      name: 'Jane Doe',
-    },
-    {
-      imageSrc: '/logo/png',
-      name: 'Alice Doe',
-    },
-  ];
-  const testimonialItems = [
-    {
-      name: 'Mathew',
-      text: 'After using this, I cannot imagine going back to the old way of doing things.',
-      handle: '@heymatt_oo',
-      imageSrc: '/logo/png',
-    },
-    {
-      name: 'Joshua',
-      text: 'Perfect for my use case',
-      handle: '@joshua',
-      imageSrc: '/logo/png',
-    },
-    {
-      name: 'Parl Coppa',
-      text: 'This is the best thing since sliced bread. I cannot believe I did not think of it myself.',
-      handle: '@coppalipse',
-      imageSrc: '/logo/png',
-      featured: true, // Feature this testimonial
-    },
-    {
-      name: 'Mandy',
-      text: 'Excellent product!',
-      handle: '@mandy',
-      imageSrc: '/logo/png',
-    },
-    {
-      name: 'Alex',
-      text: 'Can easily recommend!',
-      handle: '@alex',
-      imageSrc: '/logo/png',
-    },
-    {
-      name: 'Sam',
-      text: 'I am very happy with the results.',
-      handle: '@sama',
-      imageSrc: '/logo/png',
-    },
-  ];
+ 
 
   const featureItems = [
     {
-      title: 'Intuitive Interface',
+      title: 'AI Mock Interviews',
       description:
-        'Design and customize your app easily with our simple drag-and-drop interface.',
-      icon: <SparklesIcon />,
+        'Prepare for your next interview with personalized AI-generated questions based on your resume and the job description. Our mock interviews give you a real-life experience to boost your confidence and improve your performance.',
+      icon: <Video />
     },
     {
-      title: 'Seamless Integration',
+      title: 'Resume Builder',
       description:
-        'Connect your app with other tools effortlessly for a smoother workflow.',
-      icon: <GithubIcon />,
+        'Create a professional resume that stands out to employers. Our resume builder uses industry-specific templates and customization options, ensuring your resume is both attractive and optimized for applicant tracking systems.',
+      icon: <Book />, 
     },
     {
-      title: 'Smart Analytics',
+      title: 'Cover Letter Generator',
       description:
-        'Gain valuable insights into user behavior and trends with our advanced analytics tools.',
-      icon: <LineChartIcon />,
+        'Generate a tailored cover letter that aligns with your resume and the job description. Our cover letter generator helps you express your qualifications and enthusiasm for each specific role.',
+      icon: <LetterTextIcon />, 
     },
     {
-      title: 'Rock-Solid Security',
+      title: 'Interview Feedback',
       description:
-        'Rest assured, your data is safe with our top-notch security measures.',
-      icon: <ThumbsUpIcon />,
-    },
-    {
-      title: 'Automatic Updates',
-      description:
-        'Never miss out on the latest features - our app updates itself automatically!',
-      icon: <ZapIcon />,
-    },
-    {
-      title: 'Scalability on Demand',
-      description:
-        'Grow your app along with your business needs, effortlessly expanding to meet demand.',
-      icon: <LayersIcon />,
+        'Receive detailed feedback on your AI-generated mock interviews. Identify areas for improvement and refine your answers to impress future employers.',
+      icon: <Trophy/>, // Replace with appropriate icon
     },
   ];
+  
 
   const faqItems = [
     {
       question: 'What is Ace Your Interview?',
       answer:
-        'Ace Your Interview is a comprehensive platform designed to help students and career-seeking professionals prepare for job interviews. It offers AI-generated mock interviews, peer-to-peer interview practice, resume screening, resume creation, job auto-apply features, and extensive question banks.',
+        'Ace Your Interview is a comprehensive platform designed to help students and job seekers prepare for interviews, build resumes, generate cover letters, and even auto-apply to jobs. Our AI tools provide personalized interview questions based on your resume and job descriptions.',
     },
     {
       question: 'How does the AI mock interview feature work?',
       answer:
-        'Our AI mock interview feature generates personalized interview questions based on your resume and the job description you are targeting. It provides detailed feedback on your responses to help you improve your performance.',
+        'Our AI mock interview feature analyzes your resume and the job description you provide to generate targeted interview questions. It simulates a real interview environment and offers feedback on your responses.',
     },
     {
-      question: 'Can I practice interviews with other users?',
+      question: 'Can I use the resume builder to customize my resume?',
       answer:
-        'Yes, our platform allows you to schedule and conduct peer-to-peer interviews with other users. This feature helps you gain practical experience and receive feedback from your peers.',
+        'Yes, our resume builder offers a variety of templates and customization options to help you create a resume that suits your industry and personal style. You can easily tailor your resume for different job applications.',
     },
     {
-      question: 'How does the resume screener feature work?',
+      question: 'Is there feedback after the mock interview?',
       answer:
-        'It analyzes your resume and provides feedback for improvement based on industry standards.',
+        'Yes, after completing a mock interview, our platform provides detailed feedback on your responses, helping you improve your interview skills and prepare for the real thing.',
     },
-    {
-      question: 'Can I practice interviews with other users?',
-      answer:
-        'Yes, you can cancel at any time and retain access until the end of your current billing cycle.',
-    },
-   
   ];
-
-  
-
 
   return (
     <>
-   
-  
       <div id='home'>
       <LandingPrimaryVideoCtaSection 
       title="Master Your Next Interview with AI"
@@ -179,18 +83,9 @@ export default function Component() {
       backgroundGlowVariant="secondary"
       
     >
-      <Button size="xl" variant="secondary" asChild>
-        <a href="/signup">Get Started</a>
+      <Button className='bg-green-400' size="xl" variant="secondary" asChild>
+        <a href="/signin">Get Started</a>
       </Button>
-
-      <Button size="xl" variant="outlineSecondary">
-        <a href="/blog">Learn More</a>
-      </Button>
-
-      <LandingDiscount
-        discountValueText="$50 off"
-        discountDescriptionText="for the first 10 customers (5 left)"
-      />
 
       <div className='w-full mt-12'>
       Click on Learn More to check out our blog for insights, tips, and updates related to career development and how to make the most of our app.
@@ -199,34 +94,28 @@ export default function Component() {
       </div>
     
     <LandingProductFeature
-      title="Supercharge Your Efficiency!"
+      title="Supercharge Your Job Search!`"
       descriptionComponent={
         <>
           <LandingProductFeatureKeyPoints
-            keyPoints={[
-              {
-                title: 'Intelligent Assistance',
-                description:
-                  'Receive personalized recommendations and insights tailored to your workflow.',
-              },
-              {
-                title: 'Seamless Collaboration',
-                description:
-                  'Easily collaborate with team members and clients in real-time.',
-              },
-              {
-                title: 'Advanced Customization',
-                description:
-                  'Tailor your app to fit your unique requirements with extensive customization options.',
-              },
-            ]}
+          keyPoints={[
+            {
+              title: 'AI Mock Interviews',
+              description:
+                'Practice personalized mock interviews with questions tailored to your resume and job description.',
+            },
+            {
+              title: 'Resume & Cover Letter Builder',
+              description:
+                'Easily create a professional resume and cover letter that stands out to potential employers.',
+            }
+          ]}
           />
 
           <Button className="mt-8" asChild>
             <a href="/logo/png">Try now for free</a>
           </Button>
-
-          <p className="text-sm">7 day free trial, no credit card required.</p>
+\
         </>
       }
       imageSrc="/static/images/backdrop-19.webp"
@@ -234,85 +123,8 @@ export default function Component() {
       imagePosition="left"
       imagePerspective="bottom"
     />
-    <LandingProductVideoFeature
-      title="Smart when you need it"
-      descriptionComponent={
-        <>
-          <p>
-            No tech skills? No problem! Our app lets you create tailor-made
-            solutions effortlessly.
-          </p>
-           
-          <LandingProductFeatureKeyPoints
-            variant="secondary"
-            keyPoints={[
-              {
-                title: 'Rock-Solid Security',
-                description:
-                  'Rest assured, your data is safe with our top-notch security measures.',
-              },
-              {
-                title: 'Automatic Updates',
-                description:
-                  'Never miss out on the latest features - our app updates itself automatically!',
-              },
-              {
-                title: 'Scalability on Demand',
-                description:
-                  'Grow your app along with your business needs, effortlessly expanding to meet demand.',
-              },
-            ]}
-          />
-         
-          <Button className="mt-8" variant="secondary" asChild>
-            <a href="/logo/png">Try now for free</a>
-          </Button>
-          <p className="text-sm">Get started with our free tier.</p>
-        </>
-      }
-      videoSrc="https://cache.shipixen.com/features/4-deploy-to-vercel-with-1-click.mp4"
-      videoPosition="right"
-      withBackground
-      withBackgroundGlow
-      variant="secondary"
-      backgroundGlowVariant="secondary"
-    />
 
    
-
-     <LandingProductFeature
-      title="Smart Task Prioritization"
-      descriptionComponent={
-        <>
-          <p>
-            Our AI-powered task prioritization feature automatically organizes
-            your to-do list based on deadlines, importance, and your work
-            patterns, ensuring you focus on the most critical tasks first.
-          </p>
-
-          <Button className="mt-8" variant="secondary" asChild>
-            <a href="/logo/png">Try now for free</a>
-          </Button>
-
-          <p className="text-sm">First month is on us.</p>
-        </>
-      }
-      imageSrc="/static/images/backdrop-5.webp"
-      imageAlt="Craft Unique Solutions with Ease"
-      imagePosition="left"
-      imagePerspective="none"
-      variant="secondary"
-    />
-  
-    
-     
-     <LandingSaleCtaSection
-      title="Streamline Your Career Preparation"
-      description="Our AI-driven prioritization feature organizes your mock interviews, resume tasks, and skill development activities based on deadlines and importance. Focus on what truly matters and accelerate your career growth."
-      ctaHref="https://gum.co/product"
-      ctaLabel="Sign up now"
-      withBackgroundGlow
-    />
     <div id='features'>
     <LandingFeatureList
       title={'Nothing quite like it.'}
@@ -322,9 +134,7 @@ export default function Component() {
       featureItems={featureItems}
     />
      </div>
-     <div id='pricing'>
-    <PricingPage />
-    </div>
+     
     <div id='faq'>
     <LandingFaqCollapsibleSection
       title="FAQ"
@@ -353,9 +163,7 @@ export default function Component() {
       <div className="w-full sm:w-1/4 mb-4">
         <h1 className="text-xl font-bold mb-2 font-sans">Quick Links</h1>
         <ul>
-          <li><a href="#pricing" className="text-gray-400 hover:text-gray-200">Pricing</a></li>
           <li><a href="#features" className="text-gray-400 hover:text-gray-200">Features</a></li>
-          <li><a href="/blog" className="text-gray-400 hover:text-gray-200">Blog</a></li>
           <li><a href="#faq" className="text-gray-400 hover:text-gray-200">FAQs</a></li>
         </ul>
       </div>

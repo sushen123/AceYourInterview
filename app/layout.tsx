@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
 import { ChatProvider } from "@/hooks/useChat";
+import { SessionProvider } from "next-auth/react";
 
  
 export const metadata: Metadata = {
@@ -17,20 +18,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <SessionProvider>
       <ChatProvider>
     <html lang="en">
-      <body className={` scroll-smooth`}>
-      
-        <Toaster />
-  
-        {children}
-  
-     
+      <body className={` scroll-smooth`}>    
+        <Toaster /> 
+        {children} 
         </body>
-  
     </html>
     </ChatProvider>
-    </ClerkProvider>
+    </SessionProvider>
+  
   );
 }

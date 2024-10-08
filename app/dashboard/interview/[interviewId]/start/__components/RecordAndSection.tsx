@@ -6,12 +6,13 @@ import Webcam from 'react-webcam'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner';
 import { chatSession } from '@/lib/GeminiAi';
-import { useUser } from '@clerk/nextjs'
+
 import axios from 'axios'
+import { useSession } from 'next-auth/react'
 
 export default function RecordAndSection({ mockInterviewQuestion, activeQuestionIndex, interviewData }) {
     const [userAnswer, setUserAnwer] = useState('')
-    const { user } = useUser()
+ 
     const [loading, setLoading] = useState(false)
     const [isRecording, setIsRecording] = useState(false)
     const [webSocket, setWebSocket] = useState<WebSocket | null>(null)
@@ -86,7 +87,7 @@ export default function RecordAndSection({ mockInterviewQuestion, activeQuestion
             startRecording();
         }
     };
-
+        const session = useSession()
   
 
     const UpdateUserAnswer = async () => {
@@ -111,7 +112,7 @@ export default function RecordAndSection({ mockInterviewQuestion, activeQuestion
                 userAnswer: userAnswer,
                 feedback: JsonFeedbackResponse.feedback,
                 rate: JsonFeedbackResponse.rating,
-                userEmail: user?.primaryEmailAddress?.emailAddress || "",
+                userEmail: session.data?.user?.email || "",
             }
         });
 

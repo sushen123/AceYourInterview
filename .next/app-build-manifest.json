@@ -1,9 +1,10 @@
 {
   "pages": {
-    "/dashboard/resume/theme3/page": [
+    "/dashboard/mockinterview/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/resume/theme3/page.js"
+      "static/css/app/dashboard/mockinterview/page.css",
+      "static/chunks/app/dashboard/mockinterview/page.js"
     ],
     "/dashboard/layout": [
       "static/chunks/webpack.js",
@@ -16,15 +17,45 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/dashboard/resume/page": [
+    "/dashboard/interview/[interviewId]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/resume/page.js"
+      "static/chunks/app/dashboard/interview/[interviewId]/page.js"
     ],
-    "/dashboard/resume/theme1/page": [
+    "/dashboard/interview/[interviewId]/start/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/resume/theme1/page.js"
+      "static/chunks/app/dashboard/interview/[interviewId]/start/page.js"
+    ],
+    "/dashboard/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/page.js"
+    ],
+    "/dashboard/interview/[interviewId]/start/coding/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/interview/[interviewId]/start/coding/page.js"
+    ],
+    "/dashboard/setting/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/setting/page.js"
+    ],
+    "/signin/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/signin/page.js"
+    ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
+    "/dashboard/interview/[interviewId]/result/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/interview/[interviewId]/result/page.js"
     ]
   }
 }

@@ -1,14 +1,14 @@
 import { UserButton } from "@clerk/nextjs"
 
-import NavBar from './__components/NavBar'
-import Image from "next/image"
 import { ThemeProvider } from "@/components/ui/theme-provider"
+import { Toaster } from "@/components/ui/toaster"
+import { SessionProvider } from "next-auth/react"
 
 
 function DashboardLayout({children}: any)  {
 
     return (
-        
+       
         <div className="h-screen">
           <ThemeProvider
             attribute="class"
@@ -17,10 +17,11 @@ function DashboardLayout({children}: any)  {
             disableTransitionOnChange
             storageKey="theme"
           >  
+           <Toaster />
        {children}
        </ThemeProvider> 
         </div>
-   
+         
     )
 }
 
