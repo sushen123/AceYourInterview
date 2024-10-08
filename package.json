@@ -6,8 +6,9 @@
     "dev": "next dev -p 4000",
     "build": "next build",
     "start": "next start",
-    "vercel build": "next build",
-    "lint": "next lint"
+    "vercel build": "next build && prisma generate",
+    "lint": "next lint",
+     "postinstall": "prisma generate"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.6.0",
