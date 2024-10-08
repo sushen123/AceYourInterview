@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 
 function generateGuestEmail() {
   const randomString = Math.random().toString(36).substring(2, 10);
-  return `guest.${randomString}@gmail.com`;
+  return `guest.${randomString}@email.com`;
 }
 
 export const {
@@ -20,8 +20,8 @@ export const {
   adapter: PrismaAdapter(prisma),
   providers: [
     Google({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      clientId: process.env.NEXT_AUTH_GOOGLE_ID,
+      clientSecret: process.env.NEXT_AUTH_GOOGLE_SECRET,
     }),
     {
       id: "guest",
@@ -61,7 +61,7 @@ export const {
     }
   },
   session: { strategy: "jwt" },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXT_AUTH_SECRET,
   pages: {
     signOut: '/dashboard', // Add this line
   },
