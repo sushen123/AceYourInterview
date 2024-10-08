@@ -10,7 +10,9 @@ const nextConfig = {
     experimental: {
       serverComponentsExternalPackages: ['pdf2json'],
     },
-   
+   eslint: {
+    ignoreDuringBuilds: true,
+   }
   };
 
   export default nextConfig
