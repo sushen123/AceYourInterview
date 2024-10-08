@@ -1,7 +1,6 @@
 import { Button } from '@/components/shared/ui/button';
 import { LandingPrimaryVideoCtaSection } from '@/components/landing/cta/LandingPrimaryCta';
 
-import { LandingDiscount } from '@/components/landing/discount/LandingDiscount';
 
 import { LandingProductFeature } from '@/components/landing/LandingProductFeature';
 import { LandingProductFeatureKeyPoints } from '@/components/landing/LandingProductFeatureKeyPoints';
@@ -76,7 +75,7 @@ export default function Component() {
       description="Elevate your interview prep with our cutting-edge AI-driven app. Sharpen your skills, perfect your resume, and ace every interview with personalized mock interviews and expert feedback. Success is just an interview away."
       autoPlay
       controls={false}
-      videoSrc="https://cache.shipixen.com/features/11-pricing-page-builder.mp4"
+      videoSrc="screenrun.mp4"
       withBackground
       withBackgroundGlow
       variant="secondary"

@@ -16,13 +16,15 @@ export async function POST(req: NextRequest) {
         }
        })
     
+       if(userId) {
        const result = await prisma.coveLetters.create({
         data: {
             userId: userId?.id,
-            name: body.name,
+            name: body?.name,
+            
+
         }
        })
-    
        const resumeId = result.id
     
     
@@ -30,6 +32,9 @@ export async function POST(req: NextRequest) {
         message: "Cover Letter Created Successfully",
         id: resumeId
        })
+    }
+    
+     
     
    } catch (error) {
     console.log(error)
