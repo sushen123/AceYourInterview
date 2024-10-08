@@ -79,7 +79,7 @@ function AddNewInterview() {
     }
   };
     return <div>
-        <ButtonShootingStarBorder onClick={()=> {
+        <ButtonShootingStarBorder textClass="" onClick={()=> {
           setOpenDialog(true)
         }} text="Add" className="" />
         <Dialog   open={openDialog}>
