@@ -13,7 +13,7 @@
     "jsx": "preserve",
     "incremental": true,
        // Optional: Disables strict type checking
-    "noImplicitAny": false 
+    "noImplicitAny": false,
     "plugins": [
       {
         "name": "next"
