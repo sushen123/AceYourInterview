@@ -395,7 +395,10 @@ Collaborative and innovative work environment.
         <div>
           <Sheet>
             <SheetTrigger asChild>
-              <Button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-3 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105">
+              <Button onClick={() => {
+                 window.location.href = "https://www.profitablecpmrate.com/vgj4u7x2bp?key=65fe234e51772d32df63762913ed3d34";
+
+              }} className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-3 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105">
                 <Zap className="mr-2 h-5 w-5" /> Create New Interview
               </Button>
             </SheetTrigger>
