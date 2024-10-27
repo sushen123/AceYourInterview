@@ -1,3 +1,4 @@
+"use client"
 import { UserButton } from "@clerk/nextjs"
 
 import { ThemeProvider } from "@/components/ui/theme-provider"
@@ -20,7 +21,7 @@ function DashboardLayout({children}: any)  {
             storageKey="theme"
           >  
            <Toaster />
-          <Banner />
+      
        {children}
        </ThemeProvider> 
         </div>
