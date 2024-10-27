@@ -21,7 +21,7 @@ function DashboardLayout({children}: any)  {
             storageKey="theme"
           >  
            <Toaster />
-      
+      <Banner />
        {children}
        </ThemeProvider> 
         </div>
