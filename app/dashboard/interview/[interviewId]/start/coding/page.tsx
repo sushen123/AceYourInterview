@@ -16,6 +16,7 @@ import { PlayIcon } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import Banner from "@/app/components/BannerAd";
 
 export default function Home({params}) {
     const avatarMessage = "Here is your last coding problem. It’s designed to challenge your skills and showcase your problem-solving approach. Analyze the problem carefully and provide an optimal solution"
@@ -273,6 +274,7 @@ The JSON response should be concise, suitable for the candidate's experience lev
           overflowY: 'auto',
           whiteSpace: 'pre-wrap'
         }} className="scrollbar-gradients border-t-0 border-white bg-stone-900">
+          <Banner />
           <h1 className="font-sans text-stone-600 text-sm font-light ml-5">Output:</h1>
           <h1 className="ml-5 mt-2 w-30 text-slate-400 font-sans font-normal text-sm ">
             {output ? output: 'Click  "Run" to see the output here' }

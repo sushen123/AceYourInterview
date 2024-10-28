@@ -14,7 +14,7 @@ export default function Banner2(): JSX.Element {
         const conf = document.createElement('script')
         const script = document.createElement('script')
         script.type = 'text/javascript'
-        script.src = `//paymentperiodiciceberg.com/${atOptions.key}/invoke.js`
+        script.src = `//paymentperiodiciceberg.com/3d720727734a82f9bf28d94a3834804d/invoke.js`
         conf.innerHTML = `atOptions = ${JSON.stringify(atOptions)}`
 
         banner.current.append(conf)

@@ -40,6 +40,7 @@ import { toast } from 'sonner';
 import { chatSession } from '@/lib/GeminiAi';
 import { MicIcon } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
+import Banner from '@/app/components/BannerAd';
 
 
 
@@ -375,7 +376,10 @@ useEffect(() => {
         <Experience  />
       </Canvas>
 
+      
+
       <div className='fixed top-5  w-screen'>
+      <Banner />
      <h1 className='text-black ml-10 text-3xl'> {`${questionNo}/15`}</h1>
       
       <Progress value={progress} className='ml-10 w-[80%] sm:w-[30%] md:w-[20%]' />
