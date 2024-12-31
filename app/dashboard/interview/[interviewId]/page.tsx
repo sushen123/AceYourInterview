@@ -34,7 +34,6 @@ export default function Interview({params}: {params: any}) {
    <div className='text-black w-full     flex flex-col justify-center  font-mono  bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)] '>
       <div className='min-h-screen max-h-full'>
 
-     <Banner />
     <div className=' p-3   flex gap-2 items-center'>
     <Link href={'/dashboard'}>
     <div className='flex gap-2 items-center'>
@@ -119,7 +118,7 @@ interface interviewData {
 import { CheckIcon, ChevronRightIcon } from "lucide-react";
 
 import { AnimatedSubscribeButton } from "@/components/magicui/animated-subscribe-button";
-import Banner from '@/app/components/BannerAd'
+
 
  function AnimatedSubscribeButtonDemo({setWebcamEnabled}) {
   return (

@@ -3,11 +3,6 @@ import { UserButton } from "@clerk/nextjs"
 
 import { ThemeProvider } from "@/components/ui/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
-import { SessionProvider } from "next-auth/react"
-import Script from "next/script"
-import Banner from "../components/BannerAd"
-import AdsterraBanner from "../components/Popup"
-import Banner2 from "../components/Banner2"
 
 
 function DashboardLayout({children}: any)  {
@@ -23,10 +18,9 @@ function DashboardLayout({children}: any)  {
             storageKey="theme"
           >  
            <Toaster />
-     
-      <AdsterraBanner />
+
        {children}
-       <Banner2 />
+     
        </ThemeProvider> 
         </div>
          

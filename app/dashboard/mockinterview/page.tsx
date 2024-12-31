@@ -60,7 +60,7 @@ import { AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import { useSession } from "next-auth/react";
 import { title } from "process";
-import Banner from "@/app/components/BannerAd";
+
 
 
 
@@ -392,7 +392,7 @@ Collaborative and innovative work environment.
         </AlertDescription>
       </Alert>
 
-      <Banner />
+   
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>

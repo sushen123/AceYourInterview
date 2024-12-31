@@ -33,7 +33,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import Banner from "@/app/components/BannerAd";
+
 
 
 
@@ -341,7 +341,7 @@ console.log(response)
           transition={{ duration: 0.5 }}
           className="space-y-8"
         >
-          <Banner />
+         
          
 
           <Card className="bg-gradient-to-r from-purple-400 to-blue-500 dark:from-purple-600 dark:to-blue-700 text-white shadow-lg">
